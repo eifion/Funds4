@@ -3,6 +3,7 @@ import SwiftUI
 
 struct TransactionList: View {
     @Binding var selectedTab: Int
+    @Binding var showAddFund: Bool
     
     @Environment(\.modelContext) private var modelContext
     
@@ -20,8 +21,9 @@ struct TransactionList: View {
         // If there are no funds on opening the app, switch to the Funds tab
         // so that one can be added.
         if (funds.isEmpty) {
-            print("No funds. Switching to Funds view.")
+            print("No funds. Switching to Funds view and showing new fund sheet.")
             self.selectedTab = 2;
+            self.showAddFund = true
         }
     }
 }

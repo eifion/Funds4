@@ -1,18 +1,18 @@
-//
-//  FundList.swift
-//  Funds4
-//
-//  Created by Eifion Bedford on 24/03/2024.
-//
-
 import SwiftUI
 
 struct FundList: View {
+    @Binding var showAddFund: Bool
+    
     var body: some View {
         Text("Hello, Funds!")
+            .sheet(isPresented: $showAddFund) {
+               FundEditor(fundToEdit: nil)
+                   .presentationDetents([.medium])
+           }
+        
     }
 }
 
 #Preview {
-    FundList()
+    FundList(showAddFund: .constant(false))
 }
