@@ -1,13 +1,9 @@
-//
-//  ContentView.swift
-//  Funds4
-//
-//  Created by Eifion Bedford on 24/03/2024.
-//
-
+import SwiftData
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.modelContext) var modelContext
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
