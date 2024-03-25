@@ -76,8 +76,7 @@ struct TransactionList: View {
         updateOverallBalance()
     }
     
-    private func deleteTransaction(_ transaction: Transaction) {
-        transaction.fund?.currentBalance -= transaction.amount
+    private func deleteTransaction(_ transaction: Transaction) {        
         modelContext.delete(transaction)
         updateOverallBalance()
     }

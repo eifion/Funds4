@@ -14,16 +14,14 @@ struct TransactionDaySection: View {
             ForEach(transactions) { transaction in
                TransactionRow(transaction: transaction)
                 .swipeActions(allowsFullSwipe: false) {
-//                    // Delete transaction button
-//                    if (transaction.transferFund == nil) {
-//                        Button(role: .destructive) {
-//                            delete(transaction)
-//                        }
-//                        label: {
-//                            Label("Delete", systemImage: "trash")
-//                        }
-//                    }
-//                    
+                        // Delete transaction button
+                        Button(role: .destructive) {
+                            delete(transaction)
+                        }
+                        label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+
                     // Edit transaction button
                     Button {
                         transactionToEdit = transaction
