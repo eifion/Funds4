@@ -52,4 +52,9 @@ final class Fund {
     var currentDisplayBalance: String {
         currentBalance.asCurrency
     }
+    
+    func calculateCurrentBalance() {
+        //TODO: this.
+        print("CALCULATING CURRENT BALANCE!")
+    }
 }

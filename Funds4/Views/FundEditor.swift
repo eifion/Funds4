@@ -12,7 +12,7 @@ struct FundEditor: View {
     @State var startDate = Date.now
     @State var buttonText = "Add"
     @State var showUniqueNameAlert = false
-    @State var isDefaultFund: Bool = false
+    @State var isDefaultFund = false
 
     @FocusState var focusNameField: Bool?
     
@@ -66,7 +66,22 @@ struct FundEditor: View {
                 
                 ToolbarItem(placement: .confirmationAction) {
                     Button(buttonText) {
+                        let fundNames = funds.map { $0.name }
+                                                    
+                        var fundNameIsUnique = false
+                        if let fundToEdit {
+                            fundNameIsUnique = fundToEdit.name == name || fundNames.contains(name) == false
+                        } else {
+                            fundNameIsUnique = fundNames.contains(name) == false
+                        }
+                                                     
+                        guard (fundNameIsUnique) else {
+                            showUniqueNameAlert = true
+                            return;
+                        }
+                        
                         save()
+                        dismiss()
                     }
                 }
             }
@@ -79,9 +94,10 @@ struct FundEditor: View {
     
     func populateFund() {
         if let fundToEdit {
-            // Editing existing fund
             name = fundToEdit.name
-            // etc.
+            openingBalance = Decimal(abs((Double(fundToEdit.openingBalance)) / 100.0))
+            startDate = fundToEdit.startDate.iso8601StringToDate() ?? Date.now
+            buttonText = "Update"
         } else {
             // New fund
             if (funds.isEmpty) {
@@ -98,7 +114,10 @@ struct FundEditor: View {
         let startDateAsString = startDate.asISO8601Date()
         
         if let fundToEdit {
-            // Update existing fund.
+            fundToEdit.name = name
+            fundToEdit.openingBalance = openingBalanceAsInt
+            fundToEdit.startDate = startDate.asISO8601Date()
+            fundToEdit.calculateCurrentBalance()
         }
         else {
             // Add new fund.
