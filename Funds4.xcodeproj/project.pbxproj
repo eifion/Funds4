@@ -26,6 +26,7 @@
 		EF7B6CE22BB0D87200CA6F92 /* FundRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */; };
 		EF7B6CE42BB0DB4D00CA6F92 /* String-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE32BB0DB4D00CA6F92 /* String-Extensions.swift */; };
 		EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */; };
+		EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundRow.swift; sourceTree = "<group>"; };
 		EF7B6CE32BB0DB4D00CA6F92 /* String-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-Extensions.swift"; sourceTree = "<group>"; };
 		EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int-Extensions.swift"; sourceTree = "<group>"; };
+		EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				EF7B6CD12BB0A77300CA6F92 /* FundEditor.swift */,
 				EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */,
 				EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */,
+				EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				EF7B6CE42BB0DB4D00CA6F92 /* String-Extensions.swift in Sources */,
 				EF7B6CCB2BB0961700CA6F92 /* TransactionList.swift in Sources */,
 				EF7B6CD92BB0D47400CA6F92 /* Preview-ModelContainer.swift in Sources */,
+				EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */,
 				EF7B6CD42BB0CE4500CA6F92 /* Bool-Extensions.swift in Sources */,
 				EF7B6CDC2BB0D49E00CA6F92 /* SampleData-Fund.swift in Sources */,
 				EF7B6CB92BB0916900CA6F92 /* ContentView.swift in Sources */,

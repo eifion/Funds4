@@ -54,7 +54,8 @@ final class Fund {
     }
     
     func calculateCurrentBalance() {
-        var today = Date.now.asISO8601Date()
+        //var today = Date.now.asISO8601Date()
+        
         var balance = openingBalance
         for transaction in transactions {
             balance += transaction.amount

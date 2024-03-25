@@ -20,6 +20,19 @@ struct TransactionList: View {
                        Text(getOverallBalance())
                    }
                 }
+                
+                if (transactions.isEmpty) {
+                    Section {
+                        Text("No transactions to display")
+                    }
+                }
+                else {
+                    Section {
+                        ForEach(transactions) { transaction in
+                            TransactionRow(transaction: transaction)
+                        }
+                    }
+                }
             }
         }
         .onAppear(perform: checkForFund)
