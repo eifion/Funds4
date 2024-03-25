@@ -8,10 +8,19 @@ struct TransactionList: View {
     @Environment(\.modelContext) private var modelContext
     
     @Query var funds: [Fund]
+    @Query(sort: \Transaction.startDate, order: .reverse) var transactions: [Transaction]
             
     var body: some View {
         NavigationView {
-            Text("Hello, world!")
+            List {
+                Section {
+                    HStack {
+                       Text("Overall Balance:").bold()
+                       Spacer()
+                       Text(getOverallBalance())
+                   }
+                }
+            }
         }
         .onAppear(perform: checkForFund)
     }
@@ -26,8 +35,19 @@ struct TransactionList: View {
             self.showAddFund = true
         }
     }
+    
+    func getOverallBalance() -> String {
+        funds.forEach{ fun in fun.calculateCurrentBalance() }
+        return funds.reduce(0) { $0 + $1.currentBalance }.asCurrency
+    }
 }
 
-//#Preview {
-//    TransactionList()
-//}
+#Preview {
+    ModelContainerPreview(ModelContainer.sample) {
+        TabView {
+            TransactionList(selectedTab: .constant(1), showAddFund: .constant(false))
+            .tabItem {
+                Label("Transactions", systemImage: "arrow.up.arrow.down") }
+        }
+    }
+}
