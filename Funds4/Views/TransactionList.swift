@@ -12,8 +12,11 @@ struct TransactionList: View {
     
     @State private var overallBalance: String = "0.00"
     @State var showAddTransaction = false
+    @State var transactionToEdit: Transaction?
             
     var body: some View {
+        let groupedTransactions = Dictionary(grouping: transactions, by: {$0.displayDate})
+        
         NavigationView {
             List {
                 Section {
@@ -30,16 +33,22 @@ struct TransactionList: View {
                     }
                 }
                 else {
-                    Section {
-                        ForEach(transactions) { transaction in
-                            TransactionRow(transaction: transaction)
-                        }
-                    }
+                    ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
+                        TransactionDaySection(
+                           date: group.key,
+                           transactions: group.value,
+                           delete: self.deleteTransaction(_:),
+                           transactionToEdit: $transactionToEdit)
+                   }
                 }
             }
             .sheet(isPresented: $showAddTransaction, onDismiss: updateOverallBalance) {
                 let defaultFund = funds.first(where: { $0.isDefault })
                 TransactionEditor(fund: defaultFund!, transactionToEdit: nil as Transaction?)
+                    .presentationDetents([.medium])
+            }
+            .sheet(item: $transactionToEdit, onDismiss: updateOverallBalance) { item in
+                TransactionEditor(fund: item.fund!, transactionToEdit: item)
                     .presentationDetents([.medium])
             }
             .toolbar {
@@ -50,6 +59,8 @@ struct TransactionList: View {
                 }
             }
         }
+        .listStyle(.grouped)
+        .navigationTitle("Transactions")
         .onAppear(perform: checkForFund)
     }
     
@@ -65,6 +76,12 @@ struct TransactionList: View {
         updateOverallBalance()
     }
     
+    private func deleteTransaction(_ transaction: Transaction) {
+        transaction.fund?.currentBalance -= transaction.amount
+        modelContext.delete(transaction)
+        updateOverallBalance()
+    }
+
     func updateOverallBalance() {
         funds.forEach{ fun in fun.calculateCurrentBalance() }
         overallBalance = funds.reduce(0) { $0 + $1.currentBalance }.asCurrency

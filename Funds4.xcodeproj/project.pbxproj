@@ -28,6 +28,7 @@
 		EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */; };
 		EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */; };
 		EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */; };
+		EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int-Extensions.swift"; sourceTree = "<group>"; };
 		EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
 		EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditor.swift; sourceTree = "<group>"; };
+		EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDaySection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */,
 				EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */,
 				EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */,
+				EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				EF7B6CDE2BB0D4BF00CA6F92 /* SampleData-Transaction.swift in Sources */,
 				EF7B6CC62BB0922F00CA6F92 /* Fund.swift in Sources */,
 				EF7B6CCE2BB09BE000CA6F92 /* Date-Extensions.swift in Sources */,
+				EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */,
 				EF7B6CE02BB0D7BE00CA6F92 /* FundDetails.swift in Sources */,
 				EF7B6CD02BB09EF400CA6F92 /* FundList.swift in Sources */,
 				EF7B6CE22BB0D87200CA6F92 /* FundRow.swift in Sources */,
