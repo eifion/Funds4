@@ -27,6 +27,7 @@
 		EF7B6CE42BB0DB4D00CA6F92 /* String-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE32BB0DB4D00CA6F92 /* String-Extensions.swift */; };
 		EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */; };
 		EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */; };
+		EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		EF7B6CE32BB0DB4D00CA6F92 /* String-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-Extensions.swift"; sourceTree = "<group>"; };
 		EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int-Extensions.swift"; sourceTree = "<group>"; };
 		EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
+		EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */,
 				EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */,
 				EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */,
+				EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				EF7B6CD72BB0D44A00CA6F92 /* ModelContainerPreview.swift in Sources */,
 				EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */,
 				EF7B6CD22BB0A77300CA6F92 /* FundEditor.swift in Sources */,
+				EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

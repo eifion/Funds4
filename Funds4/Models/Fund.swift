@@ -53,11 +53,21 @@ final class Fund {
         currentBalance.asCurrency
     }
     
+    @Transient
+    var startDateAsDate: Date {
+        guard let s = startDate.iso8601StringToDate() else {
+            fatalError()
+        }
+        return s
+    }
+    
     func calculateCurrentBalance() {
         //var today = Date.now.asISO8601Date()
         
         var balance = openingBalance
+        print("Opening balance for \(name) is \(openingBalance.description)")
         for transaction in transactions {
+            print("Adding \(transaction.name): \(transaction.amount.description)")
             balance += transaction.amount
         }
         

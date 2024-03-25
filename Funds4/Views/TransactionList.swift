@@ -9,6 +9,9 @@ struct TransactionList: View {
     
     @Query var funds: [Fund]
     @Query(sort: \Transaction.startDate, order: .reverse) var transactions: [Transaction]
+    
+    @State private var overallBalance: String = "0.00"
+    @State var showAddTransaction = false
             
     var body: some View {
         NavigationView {
@@ -17,7 +20,7 @@ struct TransactionList: View {
                     HStack {
                        Text("Overall Balance:").bold()
                        Spacer()
-                       Text(getOverallBalance())
+                       Text(overallBalance)
                    }
                 }
                 
@@ -34,6 +37,18 @@ struct TransactionList: View {
                     }
                 }
             }
+            .sheet(isPresented: $showAddTransaction, onDismiss: updateOverallBalance) {
+                let defaultFund = funds.first(where: { $0.isDefault })
+                TransactionEditor(fund: defaultFund!, transactionToEdit: nil as Transaction?)
+                    .presentationDetents([.medium])
+            }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Add Transaction", systemImage: "plus") {
+                        showAddTransaction = true
+                    }
+                }
+            }
         }
         .onAppear(perform: checkForFund)
     }
@@ -43,15 +58,16 @@ struct TransactionList: View {
         // If there are no funds on opening the app, switch to the Funds tab
         // so that one can be added.
         if (funds.isEmpty) {
-            print("No funds. Switching to Funds view and showing new fund sheet.")
             self.selectedTab = 2;
             self.showAddFund = true
         }
+        
+        updateOverallBalance()
     }
     
-    func getOverallBalance() -> String {
+    func updateOverallBalance() {
         funds.forEach{ fun in fun.calculateCurrentBalance() }
-        return funds.reduce(0) { $0 + $1.currentBalance }.asCurrency
+        overallBalance = funds.reduce(0) { $0 + $1.currentBalance }.asCurrency
     }
 }
 
@@ -59,8 +75,9 @@ struct TransactionList: View {
     ModelContainerPreview(ModelContainer.sample) {
         TabView {
             TransactionList(selectedTab: .constant(1), showAddFund: .constant(false))
-            .tabItem {
-                Label("Transactions", systemImage: "arrow.up.arrow.down") }
+                .tabItem {
+                    Label("Transactions", systemImage: "arrow.up.arrow.down") }
         }
     }
 }
+

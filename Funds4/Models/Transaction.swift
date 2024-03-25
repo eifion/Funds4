@@ -49,4 +49,20 @@ final class Transaction {
     var iconName: String {
         return amount < 0 ? "arrow.left.circle.fill" : "arrow.right.circle.fill"
     }
+    
+    @Transient
+    var startDateAsDate: Date {
+        guard let s = startDate.iso8601StringToDate() else {
+            fatalError()
+        }
+        return s
+    }
+    
+    @Transient
+    var endDateAsDate: Date {
+        guard let e = endDate.iso8601StringToDate() else {
+            fatalError()
+        }
+        return e
+    }
 }
