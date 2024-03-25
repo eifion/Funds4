@@ -1,18 +1,35 @@
+import SwiftData
 import SwiftUI
 
 struct FundList: View {
     @Binding var showAddFund: Bool
     
+    @Environment(\.modelContext) private var modelContext
+    
+    @Query(sort: [SortDescriptor(\Fund.isDefault, order: .reverse), SortDescriptor(\Fund.name)])
+        var funds: [Fund]
+    
     var body: some View {
-        Text("Hello, Funds!")
+        NavigationView {
+            List(funds) { fund in
+                FundRow(fund: fund)
+            }
+            .listStyle(.grouped)
+            .navigationTitle("Funds")
             .sheet(isPresented: $showAddFund) {
-               FundEditor(fundToEdit: nil)
-                   .presentationDetents([.medium])
-           }
-        
+                FundEditor(fundToEdit: nil)
+                    .presentationDetents([.medium])
+            } 
+        }
     }
 }
 
 #Preview {
-    FundList(showAddFund: .constant(false))
+    ModelContainerPreview(ModelContainer.sample) {
+        TabView {
+            FundList(showAddFund: .constant(false))
+                .tabItem { Label("Funds", systemImage: "sterlingsign") }
+        }
+    }
+
 }
