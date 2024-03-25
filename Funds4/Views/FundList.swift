@@ -19,7 +19,14 @@ struct FundList: View {
             .sheet(isPresented: $showAddFund) {
                 FundEditor(fundToEdit: nil)
                     .presentationDetents([.medium])
-            } 
+            }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Add Fund", systemImage: "plus") {
+                        showAddFund = true
+                    }
+                }
+            }
         }
     }
 }
