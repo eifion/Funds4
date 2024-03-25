@@ -82,7 +82,7 @@ struct TransactionList: View {
     }
 
     func updateOverallBalance() {
-        funds.forEach{ fun in fun.calculateCurrentBalance() }
+        funds.forEach{ fun in fun.calculateCurrentBalance() }                        
         overallBalance = funds.reduce(0) { $0 + $1.currentBalance }.asCurrency
     }
 }

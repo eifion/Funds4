@@ -120,14 +120,8 @@
 		EF7B6CC92BB0960300CA6F92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EF7B6CCA2BB0961700CA6F92 /* TransactionList.swift */,
-				EF7B6CCF2BB09EF400CA6F92 /* FundList.swift */,
-				EF7B6CD12BB0A77300CA6F92 /* FundEditor.swift */,
-				EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */,
-				EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */,
-				EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */,
-				EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */,
-				EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */,
+				EFD3F2DF2BB1F76800DB805D /* Transactions */,
+				EFD3F2DE2BB1F75800DB805D /* Funds */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -159,6 +153,28 @@
 				EF7B6CDD2BB0D4BF00CA6F92 /* SampleData-Transaction.swift */,
 			);
 			path = SampleData;
+			sourceTree = "<group>";
+		};
+		EFD3F2DE2BB1F75800DB805D /* Funds */ = {
+			isa = PBXGroup;
+			children = (
+				EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */,
+				EF7B6CD12BB0A77300CA6F92 /* FundEditor.swift */,
+				EF7B6CCF2BB09EF400CA6F92 /* FundList.swift */,
+				EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */,
+			);
+			path = Funds;
+			sourceTree = "<group>";
+		};
+		EFD3F2DF2BB1F76800DB805D /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */,
+				EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */,
+				EF7B6CCA2BB0961700CA6F92 /* TransactionList.swift */,
+				EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */,
+			);
+			path = Transactions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
