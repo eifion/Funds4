@@ -41,7 +41,7 @@ struct FundEditor: View {
                     Text("£")
                     TextField("Opening Balance", value: $openingBalance, format: .number)
                         .multilineTextAlignment(.trailing)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numbersAndPunctuation)
                         .frame(width: 100)
                 }.frame(height: rowHeight)
                 

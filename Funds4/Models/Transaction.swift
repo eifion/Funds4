@@ -3,12 +3,14 @@ import SwiftData
 import SwiftUI
 
 @Model
-final class Transaction {
+final class Transaction: Identifiable {
+    var id =  UUID()
     var name: String
     var startDate: String
     var endDate: String
     var amount: Int
     var fund: Fund?
+    var transferId: UUID?
     
     init(name: String, startDate: String, endDate: String, amount: Int) {
         self.name = name

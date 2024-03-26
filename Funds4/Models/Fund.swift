@@ -80,11 +80,13 @@ final class Fund {
             // If transaction is an outgoing, add it.
             if (transaction.amount < 0) {
                 balance += transaction.amount
+                print("Adding outgoing \(transaction.name) \(transaction.amount.asCurrency)")
                 continue
             }
                         
             // If transaction is an completed incoming, add it.
             if (transaction.endDate <= today) {
+                print("Adding completed incoming \(transaction.name) \(transaction.amount.asCurrency)")
                 balance += transaction.amount
                 continue
             }
@@ -104,8 +106,10 @@ final class Fund {
             guard let days = calendar.dateComponents([.day], from: startDate, to: currentDate).day else {
                 fatalError("Couldn't calculate days")
             }
-                       
-            balance += Int(Double(days + 1) / Double(totalDays + 1) * Double(transaction.amount))
+            
+            let fractionToAdd = Double(days + 1) / Double(totalDays + 1)
+            balance += Int(fractionToAdd * Double(transaction.amount))
+            print("Adding ongoing incoming \(transaction.name) \(fractionToAdd) of \(transaction.amount.asCurrency) is \( Int(fractionToAdd * Double(transaction.amount)).asCurrency)")                       
         }
         
         currentBalance = balance
