@@ -12,10 +12,12 @@ struct TransactionList: View {
     
     @State private var overallBalance: String = "0.00"
     @State var showAddTransaction = false
+    @State var showAddTransfer = false
     @State var transactionToEdit: Transaction?
             
     var body: some View {
-        let groupedTransactions = Dictionary(grouping: transactions, by: {$0.displayDate})
+        let filteredTransactions = transactions.filter{ $0.transferFund == nil || $0.amount > 0 }
+        let groupedTransactions = Dictionary(grouping: filteredTransactions, by: {$0.displayDate})
         
         NavigationView {
             List {
@@ -51,7 +53,19 @@ struct TransactionList: View {
                 TransactionEditor(fund: item.fund!, transactionToEdit: item)
                     .presentationDetents([.medium])
             }
+            .sheet(isPresented: $showAddTransfer, onDismiss: updateOverallBalance) {
+                TransferEditor()
+                    .presentationDetents([.medium])
+            }
             .toolbar {
+                if (funds.count > 1) {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button("Add Transaction", systemImage: "arrow.left.arrow.right") {
+                            showAddTransfer = true
+                        }
+                    }
+                }
+                
                 ToolbarItem(placement: .primaryAction) {
                     Button("Add Transaction", systemImage: "plus") {
                         showAddTransaction = true

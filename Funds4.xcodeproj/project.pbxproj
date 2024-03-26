@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF6EEA722BB2F30F005C1562 /* TransferEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6EEA712BB2F30F005C1562 /* TransferEditor.swift */; };
 		EF7B6CB72BB0916900CA6F92 /* Funds4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CB62BB0916900CA6F92 /* Funds4App.swift */; };
 		EF7B6CB92BB0916900CA6F92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CB82BB0916900CA6F92 /* ContentView.swift */; };
 		EF7B6CBB2BB0916A00CA6F92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF7B6CBA2BB0916A00CA6F92 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF6EEA712BB2F30F005C1562 /* TransferEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferEditor.swift; sourceTree = "<group>"; };
 		EF7B6CB32BB0916900CA6F92 /* Funds4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Funds4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF7B6CB62BB0916900CA6F92 /* Funds4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funds4App.swift; sourceTree = "<group>"; };
 		EF7B6CB82BB0916900CA6F92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,6 +70,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF6EEA702BB2F305005C1562 /* Transfers */ = {
+			isa = PBXGroup;
+			children = (
+				EF6EEA712BB2F30F005C1562 /* TransferEditor.swift */,
+			);
+			path = Transfers;
+			sourceTree = "<group>";
+		};
 		EF7B6CAA2BB0916900CA6F92 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +130,7 @@
 		EF7B6CC92BB0960300CA6F92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EF6EEA702BB2F305005C1562 /* Transfers */,
 				EFD3F2DF2BB1F76800DB805D /* Transactions */,
 				EFD3F2DE2BB1F75800DB805D /* Funds */,
 			);
@@ -266,6 +277,7 @@
 				EF7B6CD72BB0D44A00CA6F92 /* ModelContainerPreview.swift in Sources */,
 				EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */,
 				EF7B6CD22BB0A77300CA6F92 /* FundEditor.swift in Sources */,
+				EF6EEA722BB2F30F005C1562 /* TransferEditor.swift in Sources */,
 				EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
