@@ -10,7 +10,7 @@ final class Transaction: Identifiable {
     var endDate: String
     var amount: Int
     var fund: Fund?
-    var transferFund: Fund?
+    var transferTransaction: Transaction?
     
     init(name: String, startDate: String, endDate: String, amount: Int) {
         self.name = name
@@ -27,7 +27,7 @@ final class Transaction: Identifiable {
         }
 
         // Otherwise it's either an incoming or a transfer.
-        return self.transferFund == nil ? Color.green : Color.gray    }
+        return self.transferTransaction == nil ? Color.green : Color.gray    }
     
     @Transient
     var displayAmount: String {
@@ -49,11 +49,15 @@ final class Transaction: Identifiable {
     
     @Transient
     var fundName: String {
-        if (self.transferFund == nil) {
-            return self.fund?.name ?? ""
+        guard let fund = self.fund else {
+            return ""
         }
         
-        return self.fund == nil ? "" : "\(self.transferFund!.name) → \(self.fund!.name)"
+        guard let transferTransaction = self.transferTransaction else {
+            return self.fund?.name ?? ""
+        }
+
+        return "\(transferTransaction.fund!.name) → \(fund.name)"
     }
     
     @Transient
@@ -64,7 +68,7 @@ final class Transaction: Identifiable {
         }
         
         // Otherwise it's either an incoming or a transfer.
-        return self.transferFund == nil ? "arrow.up.circle.fill" : "arrow.left.arrow.right.circle.fill"
+        return self.transferTransaction == nil ? "arrow.up.circle.fill" : "arrow.left.arrow.right.circle.fill"
     }
     
     @Transient

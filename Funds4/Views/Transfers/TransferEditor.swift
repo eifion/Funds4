@@ -122,13 +122,14 @@ struct TransferEditor: View {
 
         let newOutgoing = Transaction(name: trimmedName, startDate: dateAsString, endDate: dateAsString, amount: amountAsInt * -1)
         newOutgoing.fund = sourceFund
-        newOutgoing.transferFund = destinationFund
         modelContext.insert(newOutgoing)
 
         let newIncoming = Transaction(name: trimmedName, startDate: dateAsString, endDate: dateAsString, amount: amountAsInt)
         newIncoming.fund = destinationFund
-        newIncoming.transferFund = sourceFund
         modelContext.insert(newIncoming)
+        
+        newOutgoing.transferTransaction = newIncoming
+        newIncoming.transferTransaction = newOutgoing
     }
 }
 

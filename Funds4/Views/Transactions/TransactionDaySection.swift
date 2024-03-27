@@ -11,7 +11,7 @@ struct TransactionDaySection: View {
     
     var body: some View {
         Section(date.dropFirst(3)) {
-            ForEach(transactions) { transaction in
+            ForEach(transactions) { transaction in                               
                TransactionRow(transaction: transaction)
                 .swipeActions(allowsFullSwipe: false) {
                         // Delete transaction button
