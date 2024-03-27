@@ -18,7 +18,7 @@ struct TransactionList: View {
     var body: some View {
         // Filter out the outgoing part of transfer transactions.
         let filteredTransactions = transactions.filter{ $0.amount > 0 || ($0.transferTransaction == nil && $0.amount < 0) }
-        let groupedTransactions = Dictionary(grouping: filteredTransactions, by: {$0.displayDate})
+        let groupedTransactions = Dictionary(grouping: filteredTransactions, by: {$0.orderedDisplayDate()})
         
         NavigationView {
             List {
@@ -94,7 +94,7 @@ struct TransactionList: View {
     private func deleteTransaction(_ transaction: Transaction) {  
         // If this is a transfer we need to delete both transactions.
         let transferTransaction = transactions.first { t in t.transferTransaction?.id == transaction.id }
-        if let transferTransaction = transferTransaction {            
+        if let transferTransaction = transferTransaction {
             modelContext.delete(transferTransaction)
         }
         

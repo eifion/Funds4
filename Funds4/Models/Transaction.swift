@@ -20,6 +20,9 @@ final class Transaction: Identifiable {
     }
     
     @Transient
+    private var calendar: Calendar  = Calendar(identifier: .gregorian)
+    
+    @Transient
     var color: Color {
         // If the amount is negative its an outgoing.
         if (self.amount < 0) {
@@ -85,5 +88,40 @@ final class Transaction: Identifiable {
             fatalError()
         }
         return e
+    }
+    
+    func orderedDisplayDate() -> String {
+        let date = startDateAsDate
+        
+        if (calendar.isDateInToday(date)) {
+            return "00_Today"
+        }
+            
+        if (calendar.isDateInYesterday(date)) {
+            return "01_Yesterday"
+        }
+            
+        // >= start of week
+        let startOfWeek = Date.now.startOfWeek
+        if (startOfWeek != nil && date >= startOfWeek!) {
+            return "02_This week"
+        }
+            
+        // >= start of month
+        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: Date.now))
+        if (startOfMonth != nil && date >= startOfMonth!) {
+            return "03_This month"
+        }
+            
+        // >= start of year
+        let startOfYear = calendar.date(from: calendar.dateComponents([.year], from: Date.now))
+        if (startOfYear != nil && date >= startOfYear!) {
+            return "04_This Year"
+        }
+            
+        // Otherwise year number.
+        let yearFormatter = DateFormatter()
+        yearFormatter.dateFormat = "yyyy"
+        return "05_\(yearFormatter.string(from: date))"
     }
 }
