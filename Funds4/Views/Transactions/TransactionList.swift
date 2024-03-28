@@ -10,7 +10,7 @@ struct TransactionList: View {
     @Query var funds: [Fund]
     @Query(sort: \Transaction.startDate, order: .reverse) var transactions: [Transaction]
     
-    @State private var overallBalance: String = "0.00"
+    @State private var overallBalance = 0
     @State var showAddTransaction = false
     @State var showAddTransfer = false
     @State var transactionToEdit: Transaction?
@@ -23,11 +23,9 @@ struct TransactionList: View {
         NavigationView {
             List {
                 Section {
-                    HStack {
-                       Text("Overall Balance:").bold()
-                       Spacer()
-                       Text(overallBalance)
-                   }
+                    NavigationLink(destination: FundStatistics(), label: {
+                        BalanceRow(text: "Overall balance:", amount: overallBalance)
+                    })
                 }
                 
                 if (transactions.isEmpty) {
@@ -105,7 +103,7 @@ struct TransactionList: View {
 
     func updateOverallBalance() {
         funds.forEach{ fun in fun.calculateCurrentBalance() }                        
-        overallBalance = funds.reduce(0) { $0 + $1.currentBalance }.asCurrency
+        overallBalance = funds.reduce(0) { $0 + $1.currentBalance }
     }
 }
 
