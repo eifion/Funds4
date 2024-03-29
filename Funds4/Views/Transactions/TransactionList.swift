@@ -24,7 +24,7 @@ struct TransactionList: View {
             List {
                 Section {
                     NavigationLink(destination: FundStatistics(), label: {
-                        BalanceRow(text: "Overall balance:", amount: overallBalance)
+                        BalanceRow(text: "Overall balance:", amount: $overallBalance)
                     })
                 }
                 

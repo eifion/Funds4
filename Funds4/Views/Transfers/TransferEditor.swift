@@ -117,7 +117,7 @@ struct TransferEditor: View {
         // One is then hidden in the list.
         let amountAsInt = Int(truncating: (amount * 100.0) as NSNumber)
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        let dateAsString = date.asISO8601Date()
+        let dateAsString = date.asISO8601String()
 
 
         let newOutgoing = Transaction(name: trimmedName, startDate: dateAsString, endDate: dateAsString, amount: amountAsInt * -1)

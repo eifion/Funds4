@@ -61,32 +61,32 @@ final class Fund {
         return s
     }
     
-    func calculateCurrentBalance() {
-        let today = Date.now.asISO8601Date()
-        
-        guard let currentDate = today.iso8601StringToDate() else {
-            fatalError("Couldn't get the current date")
+    func calculateBalanceOnDate(_ dateString: String) -> Int {
+        guard let date = dateString.iso8601StringToDate() else {
+            fatalError("Couldn't calculate the end date")
         }
         
         let calendar = Calendar.current
+        
+        if (dateString < startDate) {
+            return 0
+        }
 
         var balance = openingBalance
         for transaction in transactions {
             // Ignore transactions with future dates.
-            if (transaction.startDate > today) {
+            if (transaction.startDate > dateString) {
                 continue
             }
                         
             // If transaction is an outgoing, add it.
             if (transaction.amount < 0) {
                 balance += transaction.amount
-                print("Adding outgoing \(transaction.name) \(transaction.amount.asCurrency)")
                 continue
             }
                         
             // If transaction is an completed incoming, add it.
-            if (transaction.endDate <= today) {
-                print("Adding completed incoming \(transaction.name) \(transaction.amount.asCurrency)")
+            if (transaction.endDate <= dateString) {
                 balance += transaction.amount
                 continue
             }
@@ -102,16 +102,19 @@ final class Fund {
             guard let totalDays = calendar.dateComponents([.day], from: startDate, to: endDate).day else {
                 fatalError("Couldn't calculate day range for incoming")
             }
-            
-            guard let days = calendar.dateComponents([.day], from: startDate, to: currentDate).day else {
+                        
+            guard let days = calendar.dateComponents([.day], from: startDate, to: date).day else {
                 fatalError("Couldn't calculate days")
             }
             
             let fractionToAdd = Double(days + 1) / Double(totalDays + 1)
             balance += Int(fractionToAdd * Double(transaction.amount))
-            print("Adding ongoing incoming \(transaction.name) \(fractionToAdd) of \(transaction.amount.asCurrency) is \( Int(fractionToAdd * Double(transaction.amount)).asCurrency)")                       
         }
         
-        currentBalance = balance
+        return balance
+    }
+    
+    func calculateCurrentBalance() {
+        currentBalance = calculateBalanceOnDate(Date.now.asISO8601String())
     }
 }

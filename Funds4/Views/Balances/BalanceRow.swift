@@ -2,7 +2,7 @@ import SwiftUI
 
 struct BalanceRow: View {
     @State var text = ""
-    @State var amount = 0
+    @Binding var amount: Int
     
     var body: some View {
         HStack {
@@ -10,10 +10,10 @@ struct BalanceRow: View {
                 .bold()
             Spacer()
             Text(amount.asCurrency)
-        }.padding(.horizontal)
+        }
     }
 }
 
-#Preview {
-    BalanceRow(text: "Opening balance", amount: 99999)
-}
+//#Preview {
+//    BalanceRow(text: "Opening balance", amount: .constant(99999))
+//}
