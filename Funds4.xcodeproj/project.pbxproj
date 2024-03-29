@@ -32,6 +32,7 @@
 		EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */; };
 		EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */; };
 		EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */; };
+		EFAA66852BB6E649001EA269 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = EFAA66842BB6E649001EA269 /* SwiftDate */; };
 		EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFAA66852BB6E649001EA269 /* SwiftDate in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +223,9 @@
 			dependencies = (
 			);
 			name = Funds4;
+			packageProductDependencies = (
+				EFAA66842BB6E649001EA269 /* SwiftDate */,
+			);
 			productName = Funds4;
 			productReference = EF7B6CB32BB0916900CA6F92 /* Funds4.app */;
 			productType = "com.apple.product-type.application";
@@ -249,6 +254,9 @@
 				Base,
 			);
 			mainGroup = EF7B6CAA2BB0916900CA6F92;
+			packageReferences = (
+				EFAA66832BB6E649001EA269 /* XCRemoteSwiftPackageReference "SwiftDate" */,
+			);
 			productRefGroup = EF7B6CB42BB0916900CA6F92 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -504,6 +512,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EFAA66832BB6E649001EA269 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EFAA66842BB6E649001EA269 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EFAA66832BB6E649001EA269 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EF7B6CAB2BB0916900CA6F92 /* Project object */;
 }
