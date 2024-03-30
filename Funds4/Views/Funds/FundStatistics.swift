@@ -4,13 +4,12 @@ import SwiftDate
 import SwiftUI
 
 struct FundStatistics: View {
-    @Query var funds: [Fund]    
+    var funds: [Fund]    
     
     @State var openingBalance = 0
     @State var currentBalance = 0
-    @State var data: [ChartPoint] = []
-    @State var isPreview = false
-
+    @State private var data: [ChartPoint] = []
+    
     private let calendar = Calendar.current
     private let graphGranularity = 100
         
@@ -91,21 +90,19 @@ struct FundStatistics: View {
             fun.calculateCurrentBalance()
         }
         
-        if !isPreview {
-            data = []
-    
-            let earliestStartDate = funds.min(by: { $0.startDate < $1.startDate })?.startDateAsDate ?? Date.now
-            
-            var startDate = max(calendar.date(byAdding: .day, value: -30, to: Date.now) ?? Date.now, earliestStartDate)
-    
-    
-            while (startDate <= Date.now) {
-                let balanceOnDay = funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))}
-                data.append(ChartPoint(date: startDate, balance: Double(balanceOnDay) / 100.0))
-                //TODO: No forced unwrapping!
-                startDate = calendar.date(byAdding: .day, value: 1, to: startDate)!
-            }
+        data = []
+
+        let earliestStartDate = funds.min(by: { $0.startDate < $1.startDate })?.startDateAsDate ?? Date.now
+        var startDate = max(calendar.date(byAdding: .day, value: -30, to: Date.now) ?? Date.now, earliestStartDate)
+
+
+        while (startDate <= Date.now) {
+            let balanceOnDay = funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))}
+            data.append(ChartPoint(date: startDate, balance: Double(balanceOnDay) / 100.0))
+            //TODO: No forced unwrapping!
+            startDate = calendar.date(byAdding: .day, value: 1, to: startDate)!
         }
+        
 
         openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
         currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
@@ -119,17 +116,7 @@ struct ChartPoint: Identifiable {
 }
 
 #Preview {
-        var data = [ChartPoint]()
-        let calendar = Calendar.current
-        
-        var date = calendar.date(byAdding: .day, value: -30, to: Date.now)!
-        while (date <= Date.now) {
-            let balanceOnDay = -3700000 + Int.random(in: -30_000...30_000)
-            data.append(ChartPoint(date: date, balance: Double(balanceOnDay) / 100.0))
-            //TODO: No forced unwrapping!
-            date = calendar.date(byAdding: .day, value: 1, to: date)!
-        }
-                
-        return FundStatistics(data: data, isPreview: true)
-                                                                    
+    ModelContainerPreview(ModelContainer.sample) {
+        return FundStatistics(funds: [Fund.mainFund, Fund.house, Fund.bankLoan])
+    }
 }
