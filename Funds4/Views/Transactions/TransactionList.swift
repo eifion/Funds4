@@ -23,7 +23,7 @@ struct TransactionList: View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: FundStatistics(funds: funds), label: {
+                    NavigationLink(destination: FundStatistics(funds: funds, title: "Statistics"), label: {
                         BalanceRow(text: "Overall balance:", amount: $overallBalance)
                     })
                 }

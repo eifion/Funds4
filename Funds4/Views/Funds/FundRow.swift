@@ -6,17 +6,19 @@ struct FundRow: View {
     let fund:Fund
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(fund.name).bold(fund.isDefault)
-                HStack {
-                    Text(fund.displayDate).font(.subheadline)
-                    Text(fund.openingDisplayBalance).font(.subheadline)
+        NavigationLink(destination: FundStatistics(funds: [fund], title: fund.name), label: {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(fund.name).bold(fund.isDefault)
+                    HStack {
+                        Text(fund.displayDate).font(.subheadline)
+                        Text(fund.openingDisplayBalance).font(.subheadline)
+                    }
                 }
+                Spacer()
+                Text(fund.currentDisplayBalance).foregroundStyle(fund.currentDisplayColour)
             }
-            Spacer()
-            Text(fund.currentDisplayBalance).foregroundStyle(fund.currentDisplayColour)
-        }
+        })
     }
 }
 

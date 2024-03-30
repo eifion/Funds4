@@ -8,8 +8,10 @@ struct FundStatistics: View {
     
     @State var openingBalance = 0
     @State var currentBalance = 0
-    @State private var data: [ChartPoint] = []
+    @State var title: String
     
+    @State private var data = [ChartPoint]()
+        
     private let calendar = Calendar.current
     private let graphGranularity = 100
         
@@ -56,7 +58,7 @@ struct FundStatistics: View {
             .listStyle(.grouped)
         }
         .onAppear(perform: calculateBalances)
-        .navigationTitle("Statistics")
+        .navigationTitle(title)
     }
     
     func getMinValue() -> Int {
@@ -117,6 +119,6 @@ struct ChartPoint: Identifiable {
 
 #Preview {
     ModelContainerPreview(ModelContainer.sample) {
-        return FundStatistics(funds: [Fund.mainFund, Fund.house, Fund.bankLoan])
+        FundStatistics(funds: [Fund.mainFund, Fund.house, Fund.bankLoan], title: "Statistics")
     }
 }
