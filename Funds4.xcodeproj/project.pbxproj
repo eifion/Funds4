@@ -28,7 +28,6 @@
 		EF7B6CDE2BB0D4BF00CA6F92 /* SampleData-Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CDD2BB0D4BF00CA6F92 /* SampleData-Transaction.swift */; };
 		EF7B6CE02BB0D7BE00CA6F92 /* FundDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */; };
 		EF7B6CE22BB0D87200CA6F92 /* FundRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */; };
-		EF7B6CE42BB0DB4D00CA6F92 /* String-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE32BB0DB4D00CA6F92 /* String-Extensions.swift */; };
 		EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */; };
 		EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */; };
 		EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */; };
@@ -59,7 +58,6 @@
 		EF7B6CDD2BB0D4BF00CA6F92 /* SampleData-Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData-Transaction.swift"; sourceTree = "<group>"; };
 		EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundDetails.swift; sourceTree = "<group>"; };
 		EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundRow.swift; sourceTree = "<group>"; };
-		EF7B6CE32BB0DB4D00CA6F92 /* String-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-Extensions.swift"; sourceTree = "<group>"; };
 		EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int-Extensions.swift"; sourceTree = "<group>"; };
 		EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
 		EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditor.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 			children = (
 				EF7B6CCD2BB09BE000CA6F92 /* Date-Extensions.swift */,
 				EF7B6CD32BB0CE4500CA6F92 /* Bool-Extensions.swift */,
-				EF7B6CE32BB0DB4D00CA6F92 /* String-Extensions.swift */,
 				EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */,
 			);
 			path = Extensions;
@@ -292,7 +289,6 @@
 				EF7B6CD02BB09EF400CA6F92 /* FundList.swift in Sources */,
 				EF7B6CE22BB0D87200CA6F92 /* FundRow.swift in Sources */,
 				EF5A690F2BB5779800DDB156 /* BalanceRow.swift in Sources */,
-				EF7B6CE42BB0DB4D00CA6F92 /* String-Extensions.swift in Sources */,
 				EF7B6CCB2BB0961700CA6F92 /* TransactionList.swift in Sources */,
 				EF7B6CD92BB0D47400CA6F92 /* Preview-ModelContainer.swift in Sources */,
 				EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */,

@@ -39,7 +39,7 @@ final class Transaction: Identifiable {
     
     @Transient
     var displayDate: String {
-        guard let date = startDate.iso8601StringToDate() else {
+        guard let date = startDate.toDate()?.date else {
             return ""
         }
         
@@ -76,7 +76,7 @@ final class Transaction: Identifiable {
     
     @Transient
     var startDateAsDate: Date {
-        guard let s = startDate.iso8601StringToDate() else {
+        guard let s = startDate.toDate()?.date else {
             fatalError()
         }
         return s
@@ -84,7 +84,7 @@ final class Transaction: Identifiable {
     
     @Transient
     var endDateAsDate: Date {
-        guard let e = endDate.iso8601StringToDate() else {
+        guard let e = endDate.toDate()?.date else {
             fatalError()
         }
         return e

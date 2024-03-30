@@ -37,7 +37,7 @@ final class Fund {
     
     @Transient
     var displayDate: String {
-        guard let date = self.startDate.iso8601StringToDate() else {
+        guard let date = self.startDate.toDate(region: .UTC)?.date else {
             return ""
         }
         
@@ -56,14 +56,14 @@ final class Fund {
     
     @Transient
     var startDateAsDate: Date {
-        guard let s = startDate.iso8601StringToDate() else {
+        guard let s = startDate.toDate()?.date else {
             fatalError()
         }
         return s
     }
     
     func calculateBalanceOnDate(_ dateString: String) -> Int {
-        guard let date = dateString.iso8601StringToDate() else {
+        guard let date = dateString.toDate()?.date else {
             fatalError("Couldn't calculate the end date")
         }
         
@@ -93,10 +93,10 @@ final class Fund {
             }
             
             // If transaction is a current incoming, add the relevant fraction.
-            guard let startDate = transaction.startDate.iso8601StringToDate() else {
+            guard let startDate = transaction.startDate.toDate()?.date else {
                 fatalError("Couldn't get start date for incoming.")
             }
-            guard let endDate = transaction.endDate.iso8601StringToDate() else {
+            guard let endDate = transaction.endDate.toDate()?.date else {
                 fatalError("Couldn't get start date for incoming.")
             }
             

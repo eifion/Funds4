@@ -98,7 +98,7 @@ struct FundEditor: View {
         if let fundToEdit {
             name = fundToEdit.name
             openingBalance = Decimal(abs((Double(fundToEdit.openingBalance)) / 100.0))
-            startDate = fundToEdit.startDate.iso8601StringToDate() ?? Date.now
+            startDate = fundToEdit.startDate.toDate(region: .UTC)?.date ?? Date.now
             buttonText = "Update"
         } else {
             // New fund
