@@ -1,4 +1,5 @@
 import Charts
+import Foundation
 import SwiftData
 import SwiftDate
 import SwiftUI
@@ -9,12 +10,11 @@ struct FundStatistics: View {
     @State var openingBalance = 0
     @State var currentBalance = 0
     @State var title: String
-    
+    @State private var graphGranularity = 100
     @State private var data = [ChartPoint]()
         
     private let calendar = Calendar.current
-    private let graphGranularity = 100
-        
+            
     var body: some View {
         NavigationView {
             List {
@@ -26,26 +26,24 @@ struct FundStatistics: View {
                 if (data.count > 0) {
                     Section {
                         Chart(data) {
-                            LineMark(
-                                x: .value("Date", $0.date),
-                                y: .value("Balance", $0.balance)
+                            BarMark(
+                                x: .value("Date", $0.date, unit: .day),
+                                yStart: .value("Balance", $0.openingBalance),
+                                yEnd: .value("Balance", $0.closingBalance),
+                                width: .automatic
                             )
+                            .foregroundStyle($0.color)
                         }
                         .padding(.top)
                         .chartXAxis {
                             AxisMarks { value in
-                                AxisValueLabel {
-                                    if let s = value.as(Date.self)
-                                    {
-                                        Text(s.getOrdinalDayOfMonth())
-                                    }
-                                }
+                                AxisValueLabel()
                             }
                         }
 
                         .chartYAxis {
                             AxisMarks { value in
-                                AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: true, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
+                                AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
                             }
                         }.chartYScale(domain: [getMinValue(), getMaxValue()])
                     }
@@ -65,7 +63,7 @@ struct FundStatistics: View {
         if (data.isEmpty) {
             return 0;
         }
-        var min = Int(data.min(by: { $0.balance < $1.balance })?.balance ?? 0) / graphGranularity * graphGranularity
+        var min = Int(data.min(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0) / graphGranularity * graphGranularity
         if min < 0 {
             min -= graphGranularity
         }
@@ -76,7 +74,7 @@ struct FundStatistics: View {
             return 0;
         }
         
-        var max = graphGranularity + Int(data.max(by: { $0.balance < $1.balance })?.balance ?? 0)
+        var max = graphGranularity + Int(data.max(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0)
         
         max = max / graphGranularity * graphGranularity
         if max < 0 {
@@ -93,28 +91,39 @@ struct FundStatistics: View {
         }
         
         data = []
-
-        let earliestStartDate = funds.min(by: { $0.startDate < $1.startDate })?.startDateAsDate ?? Date.now
-        var startDate = max(calendar.date(byAdding: .day, value: -30, to: Date.now) ?? Date.now, earliestStartDate)
-
-
-        while (startDate <= Date.now) {
-            let balanceOnDay = funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))}
-            data.append(ChartPoint(date: startDate, balance: Double(balanceOnDay) / 100.0))
-            //TODO: No forced unwrapping!
-            startDate = calendar.date(byAdding: .day, value: 1, to: startDate)!
-        }
         
+        let minStartDate =  funds.min(by: { $0.startDate < $1.startDate })?.startDate.toDate()?.date
+        var startDate = minStartDate ?? Date.now
 
         openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
         currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
+
+        var startBalance = Double(openingBalance / 100)
+        while (startDate <= Date.now) {
+            let balanceOnDay = funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))}
+            data.append(ChartPoint(date: startDate, openingBalance: startBalance, closingBalance: Double(balanceOnDay) / 100.0))
+            
+            startDate = startDate + 1.days
+            startBalance = Double(balanceOnDay) / 100.0
+        }
+                        
+        let diff = Double(currentBalance - openingBalance) / 100.0
+        let exp = floor(log10(diff))
+        graphGranularity = Int(pow(Double(10.0), exp))
+        print("Granularity is \(graphGranularity)")
     }
+    
 }
 
 struct ChartPoint: Identifiable {
     var id = UUID()
     var date: Date
-    var balance: Double
+    var openingBalance: Double
+    var closingBalance: Double
+                
+    var color: Color {
+        closingBalance < openingBalance ? .red : .green
+    }
 }
 
 #Preview {

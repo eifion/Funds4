@@ -1,10 +1,13 @@
 import Foundation
 import SwiftData
+import SwiftDate
 
 extension Fund {
-    static let mainFund = Fund(name: "Main Fund", startDate: Date.now.toISO(.withFullDate), openingBalance: 10000, transactions: [], isDefault: true)
-    static let bankLoan = Fund(name: "Bank loan", startDate: Date.now.toISO(.withFullDate), openingBalance: -50000, transactions: [], isDefault: false)
-    static let house = Fund(name: "House repairs", startDate: Date.now.toISO(.withFullDate), openingBalance: -25000, transactions: [], isDefault: false)
+    
+    
+    static let mainFund = Fund(name: "Main Fund", startDate: (Date.now - 30.days).date.toISO(.withFullDate), openingBalance: -85000, transactions: [], isDefault: true)
+    static let bankLoan = Fund(name: "Bank loan", startDate: Date.now.toISO(.withFullDate), openingBalance: 0, transactions: [], isDefault: false)
+    static let house = Fund(name: "House repairs", startDate: Date.now.toISO(.withFullDate), openingBalance: 0, transactions: [], isDefault: false)
     
     static func insertSampleData(modelContext: ModelContext) {
         // Add funds
