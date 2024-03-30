@@ -8,7 +8,7 @@ struct FundEditor: View {
     @Query var funds: [Fund]
     
     @State var name = ""
-    @State var openingBalance: Decimal = 0.0
+    @State var openingBalance: Decimal?
     @State var startDate = Date.now
     @State var buttonText = "Add"
     @State var showUniqueNameAlert = false
@@ -18,8 +18,6 @@ struct FundEditor: View {
     
     let fundToEdit: Fund?
     let rowHeight: CGFloat = 44
-    
-    
     
     var body: some View {
         NavigationView {
@@ -81,8 +79,8 @@ struct FundEditor: View {
                         }
                         
                         save()
-                        dismiss()
-                    }
+                        dismiss() 
+                    }.disabled(isInvalid)
                 }
             }
             .alert("Name must be unique", isPresented: $showUniqueNameAlert) {
@@ -90,6 +88,10 @@ struct FundEditor: View {
             }
             .onAppear(perform: populateFund)
         }.padding()
+    }
+    
+    var isInvalid: Bool {
+        name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || openingBalance ==  nil
     }
     
     func populateFund() {
@@ -110,7 +112,7 @@ struct FundEditor: View {
     }
     
     func save() {
-        let openingBalanceAsInt = Int(truncating: (openingBalance * 100.0) as NSNumber)
+        let openingBalanceAsInt = Int(truncating: (openingBalance ?? 0) * 100.0 as NSNumber)
         let startDateAsString = startDate.asISO8601String()
         
         if let fundToEdit {

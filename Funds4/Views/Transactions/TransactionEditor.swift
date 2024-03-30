@@ -14,7 +14,7 @@ struct TransactionEditor: View {
     
     @State var isOutgoing = true
     @State var name = ""
-    @State var amount: Decimal = 0.00
+    @State var amount: Decimal?
     @State var startDate = Date.now
     @State var endDate = Date.now
     @State var buttonText = "Add"
@@ -95,7 +95,7 @@ struct TransactionEditor: View {
                             save()
                             dismiss()
                         }
-                    }.disabled(isInvalid())
+                    }.disabled(isInvalid)
                 }
             }
             .navigationBarTitle("Transaction", displayMode: .inline)
@@ -116,18 +116,22 @@ struct TransactionEditor: View {
         }
     }
     
-    private func getPickerDateRange() -> PartialRangeFrom<Date> {
-        fund.startDateAsDate...
-    }
-    
-    private func isInvalid() -> Bool {
+    private var isInvalid: Bool {
+        guard let amount else {
+            return true
+        }
+        
         // The entered value must always be > 0. Negative incomings or outgoings make no sense.
         let amountIsInvalid = amount <= 0
         return name.isEmpty || amountIsInvalid || startDate > endDate
     }
     
+    private func getPickerDateRange() -> PartialRangeFrom<Date> {
+        fund.startDateAsDate...
+    }
+    
     private func save() {
-        var amountAsInt = Int(truncating: (amount * 100.0) as NSNumber)
+        var amountAsInt = Int(truncating: (amount ?? 0) * 100.0 as NSNumber)
         if (isOutgoing) {
             amountAsInt *= -1
             endDate = startDate

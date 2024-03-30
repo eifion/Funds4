@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import SwiftDate
 import SwiftUI
 
 @Model
@@ -114,7 +115,7 @@ final class Fund {
         return balance
     }
     
-    func calculateCurrentBalance() {
+    func calculateCurrentBalance() {                
         currentBalance = calculateBalanceOnDate(Date.now.asISO8601String())
     }
 }

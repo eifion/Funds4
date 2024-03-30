@@ -11,6 +11,7 @@ struct FundStatistics: View {
     @State var isPreview = false
 
     private let calendar = Calendar.current
+    private let graphGranularity = 100
         
     var body: some View {
         NavigationView {
@@ -43,9 +44,8 @@ struct FundStatistics: View {
                         .chartYAxis {
                             AxisMarks { value in
                                 AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: true, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
-                                
                             }
-                        }
+                        }.chartYScale(domain: [getMinValue(), getMaxValue()])
                     }
                 }
                 
@@ -59,6 +59,31 @@ struct FundStatistics: View {
         .navigationTitle("Statistics")
     }
     
+    func getMinValue() -> Int {
+        if (data.isEmpty) {
+            return 0;
+        }
+        var min = Int(data.min(by: { $0.balance < $1.balance })?.balance ?? 0) / graphGranularity * graphGranularity
+        if min < 0 {
+            min -= graphGranularity
+        }
+        return min
+    }
+    func getMaxValue() -> Int {
+        if (data.isEmpty) {
+            return 0;
+        }
+        
+        var max = graphGranularity + Int(data.max(by: { $0.balance < $1.balance })?.balance ?? 0)
+        
+        max = max / graphGranularity * graphGranularity
+        if max < 0 {
+            max -= graphGranularity
+        }
+        return max
+    }
+
+    
     func calculateBalances() {
         // Make sure each fund is up-to-date
         funds.forEach{ fun in
@@ -69,7 +94,8 @@ struct FundStatistics: View {
             data = []
     
             let earliestStartDate = funds.min(by: { $0.startDate < $1.startDate })?.startDateAsDate ?? Date.now
-            var startDate = max(calendar.date(byAdding: .day, value: -60, to: Date.now) ?? Date.now, earliestStartDate)
+            
+            var startDate = max(calendar.date(byAdding: .day, value: -30, to: Date.now) ?? Date.now, earliestStartDate)
     
     
             while (startDate <= Date.now) {
@@ -95,9 +121,9 @@ struct ChartPoint: Identifiable {
         var data = [ChartPoint]()
         let calendar = Calendar.current
         
-        var date = calendar.date(byAdding: .day, value: -365, to: Date.now)!
+        var date = calendar.date(byAdding: .day, value: -30, to: Date.now)!
         while (date <= Date.now) {
-            let balanceOnDay = -500000 + Int.random(in: 1...1000000)
+            let balanceOnDay = -3700000 + Int.random(in: -30_000...30_000)
             data.append(ChartPoint(date: date, balance: Double(balanceOnDay) / 100.0))
             //TODO: No forced unwrapping!
             date = calendar.date(byAdding: .day, value: 1, to: date)!
