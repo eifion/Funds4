@@ -140,13 +140,13 @@ struct TransactionEditor: View {
         if let transactionToEdit {
             // Update
             transactionToEdit.name = name
-            transactionToEdit.startDate = startDate.asISO8601String()
-            transactionToEdit.endDate = endDate.asISO8601String()
+            transactionToEdit.startDate = startDate.toISO(.withFullDate)
+            transactionToEdit.endDate = endDate.toISO(.withFullDate)
             transactionToEdit.amount = amountAsInt
             transactionToEdit.fund = fund
         } else {
             // Add
-            let newTransaction = Transaction(name: name, startDate: startDate.asISO8601String(), endDate: endDate.asISO8601String(), amount: amountAsInt)
+            let newTransaction = Transaction(name: name, startDate: startDate.toISO(.withFullDate), endDate: endDate.toISO(.withFullDate), amount: amountAsInt)
             newTransaction.fund = fund
             modelContext.insert(newTransaction)
         }

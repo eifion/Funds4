@@ -116,6 +116,6 @@ final class Fund {
     }
     
     func calculateCurrentBalance() {                
-        currentBalance = calculateBalanceOnDate(Date.now.asISO8601String())
+        currentBalance = calculateBalanceOnDate(Date.now.toISO(.withFullDate))
     }
 }

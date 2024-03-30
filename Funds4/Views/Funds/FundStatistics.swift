@@ -1,5 +1,6 @@
 import Charts
 import SwiftData
+import SwiftDate
 import SwiftUI
 
 struct FundStatistics: View {
@@ -99,7 +100,7 @@ struct FundStatistics: View {
     
     
             while (startDate <= Date.now) {
-                let balanceOnDay = funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.asISO8601String())}
+                let balanceOnDay = funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))}
                 data.append(ChartPoint(date: startDate, balance: Double(balanceOnDay) / 100.0))
                 //TODO: No forced unwrapping!
                 startDate = calendar.date(byAdding: .day, value: 1, to: startDate)!

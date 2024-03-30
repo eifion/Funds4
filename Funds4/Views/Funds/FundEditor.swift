@@ -113,12 +113,12 @@ struct FundEditor: View {
     
     func save() {
         let openingBalanceAsInt = Int(truncating: (openingBalance ?? 0) * 100.0 as NSNumber)
-        let startDateAsString = startDate.asISO8601String()
+        let startDateAsString = startDate.toISO(.withFullDate)
         
         if let fundToEdit {
             fundToEdit.name = name
             fundToEdit.openingBalance = openingBalanceAsInt
-            fundToEdit.startDate = startDate.asISO8601String()
+            fundToEdit.startDate = startDate.toISO(.withFullDate)
             fundToEdit.calculateCurrentBalance()
         }
         else {
