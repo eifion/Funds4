@@ -61,26 +61,21 @@ struct FundStatistics: View {
     
     func getMinValue() -> Int {
         if (data.isEmpty) {
-            return 0;
+            return 0
         }
-        var min = Int(data.min(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0) / graphGranularity * graphGranularity
-        if min < 0 {
-            min -= graphGranularity
-        }
-        return min
+        
+        let minOpening = Int(data.min(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0)
+        let minClosing = Int(data.min(by: { $0.closingBalance < $1.closingBalance })?.closingBalance ?? 0)
+        return (minOpening < minClosing ? minOpening : minClosing) - graphGranularity
     }
     func getMaxValue() -> Int {
         if (data.isEmpty) {
-            return 0;
+            return 0
         }
         
-        var max = graphGranularity + Int(data.max(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0)
-        
-        max = max / graphGranularity * graphGranularity
-        if max < 0 {
-            max -= graphGranularity
-        }
-        return max
+        let maxOpening = Int(data.max(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0)
+        let maxClosing = Int(data.max(by: { $0.closingBalance < $1.closingBalance })?.closingBalance ?? 0)
+        return  (maxOpening > maxClosing ? maxOpening : maxClosing) + graphGranularity
     }
 
     
@@ -107,10 +102,12 @@ struct FundStatistics: View {
             startBalance = Double(balanceOnDay) / 100.0
         }
                         
-        let diff = Double(currentBalance - openingBalance) / 100.0
+        let diff = abs(Double(currentBalance - openingBalance) / 100.0)
         let exp = floor(log10(diff))
         graphGranularity = Int(pow(Double(10.0), exp))
-        print("Granularity is \(graphGranularity)")
+        if (graphGranularity == 0) {
+            graphGranularity = 1
+        }        
     }
     
 }
