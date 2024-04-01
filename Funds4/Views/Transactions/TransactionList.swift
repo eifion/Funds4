@@ -22,31 +22,31 @@ struct TransactionList: View {
         let groupedTransactions = Dictionary(grouping: filteredTransactions, by: {$0.orderedDisplayDate()})
         
         NavigationView {
-            List {
-                Section {
-                    BalanceRow(text: "Opening balance", amount: $openingBalance)
-                    BalanceRow(text: "Current balance", amount: $currentBalance)
-                    BalanceChangeRow(text: "Overall change", amount: currentBalance - openingBalance)
-                }
-                
-                Section {
+            ScrollView {
+                VStack {
+                    StatsPanel(openingBalance: $openingBalance, currentBalance: $currentBalance)
                     FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
-                }
-                
-                if (transactions.isEmpty) {
-                    Section {
-                        Text("No transactions to display")
-                    }
-                }
-                else {
-                    ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
-                        TransactionDaySection(
-                           date: group.key,
-                           transactions: group.value,
-                           delete: self.deleteTransaction(_:),
-                           transactionToEdit: $transactionToEdit)
-                   }
-                }
+                }.padding()
+
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Transactions").font(.title).padding(.vertical)
+                        ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
+                            Text(group.key.dropFirst(3)).font(.caption)
+                            ForEach(group.value) { transaction in
+                                Button(action: {
+                                    transactionToEdit = transaction
+                                }, label: {
+                                    TransactionRow(transaction: transaction)
+                                })
+                                .foregroundColor(.black)
+                            }
+                        }.padding([.vertical], 4)
+                }.padding()
+
+                Spacer()
+
+                }.backgroundStyle(.blue)                
             }
             .sheet(isPresented: $showAddTransaction, onDismiss: updateOverallBalance) {
                 let defaultFund = funds.first(where: { $0.isDefault })
@@ -77,9 +77,8 @@ struct TransactionList: View {
                 }
             }
             .navigationTitle("Overview")
+            .onAppear(perform: checkForFund)
         }
-        .listStyle(.grouped)
-        .onAppear(perform: checkForFund)
     }
     
     func checkForFund()

@@ -11,6 +11,7 @@
 		EF5A690F2BB5779800DDB156 /* BalanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A690E2BB5779800DDB156 /* BalanceRow.swift */; };
 		EF5A69112BB57D2600DDB156 /* BalanceChangeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A69102BB57D2600DDB156 /* BalanceChangeRow.swift */; };
 		EF6EEA722BB2F30F005C1562 /* TransferEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6EEA712BB2F30F005C1562 /* TransferEditor.swift */; };
+		EF6FEF1B2BBAA8FA0056DCDA /* StatsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6FEF1A2BBAA8FA0056DCDA /* StatsPanel.swift */; };
 		EF7B6CB72BB0916900CA6F92 /* Funds4App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CB62BB0916900CA6F92 /* Funds4App.swift */; };
 		EF7B6CB92BB0916900CA6F92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CB82BB0916900CA6F92 /* ContentView.swift */; };
 		EF7B6CBB2BB0916A00CA6F92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF7B6CBA2BB0916A00CA6F92 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		EF5A690E2BB5779800DDB156 /* BalanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceRow.swift; sourceTree = "<group>"; };
 		EF5A69102BB57D2600DDB156 /* BalanceChangeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceChangeRow.swift; sourceTree = "<group>"; };
 		EF6EEA712BB2F30F005C1562 /* TransferEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferEditor.swift; sourceTree = "<group>"; };
+		EF6FEF1A2BBAA8FA0056DCDA /* StatsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsPanel.swift; sourceTree = "<group>"; };
 		EF7B6CB32BB0916900CA6F92 /* Funds4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Funds4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF7B6CB62BB0916900CA6F92 /* Funds4App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Funds4App.swift; sourceTree = "<group>"; };
 		EF7B6CB82BB0916900CA6F92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,14 @@
 			path = Transfers;
 			sourceTree = "<group>";
 		};
+		EF6FEF192BBAA8960056DCDA /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				EF6FEF1A2BBAA8FA0056DCDA /* StatsPanel.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		EF7B6CAA2BB0916900CA6F92 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 		EF7B6CC92BB0960300CA6F92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EF6FEF192BBAA8960056DCDA /* Shared */,
 				EF5A69122BB57D2E00DDB156 /* Balances */,
 				EF6EEA702BB2F305005C1562 /* Transfers */,
 				EFD3F2DF2BB1F76800DB805D /* Transactions */,
@@ -288,6 +299,7 @@
 			files = (
 				EF7B6CDE2BB0D4BF00CA6F92 /* SampleData-Transaction.swift in Sources */,
 				EF7B6CC62BB0922F00CA6F92 /* Fund.swift in Sources */,
+				EF6FEF1B2BBAA8FA0056DCDA /* StatsPanel.swift in Sources */,
 				EF7B6CCE2BB09BE000CA6F92 /* Date-Extensions.swift in Sources */,
 				EF5A690D2BB5751C00DDB156 /* FundStatistics.swift in Sources */,
 				EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */,

@@ -16,7 +16,7 @@ struct TransactionRow: View {
                 Text(transaction.fundName).font(.caption)
                 Text(transaction.displayAmount)
             }
-        }
+        }.padding(.bottom)
     }
 }
 

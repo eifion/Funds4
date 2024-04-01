@@ -11,27 +11,32 @@ struct FundChart: View {
     @State private var data = [ChartPoint]()
     
     var body: some View {
-        Chart(data) {
-            BarMark(
-                x: .value("Date", $0.date, unit: .day),
-                yStart: .value("Balance", $0.openingBalance),
-                yEnd: .value("Balance", $0.closingBalance),
-                width: .automatic
-            )
-            .foregroundStyle($0.color)
-        }
-        .padding(.top)
-        .chartXAxis {
-            AxisMarks { value in
-                AxisValueLabel()
+        ZStack {
+            Color(red: 0.95, green: 0.95, blue: 0.95)
+            Chart(data) {
+                BarMark(
+                    x: .value("Date", $0.date, unit: .day),
+                    yStart: .value("Balance", $0.openingBalance),
+                    yEnd: .value("Balance", $0.closingBalance),
+                    width: .automatic
+                )
+                .foregroundStyle($0.color)
             }
-        }
-        .chartYAxis {
-            AxisMarks { value in
-                AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
+            .padding(.top)
+            .chartXAxis {
+                AxisMarks { value in
+                    AxisValueLabel()
+                }
             }
+            .chartYAxis {
+                AxisMarks { value in
+                    AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
+                }
+            }
+            .chartYScale(domain: [getMinValue(), getMaxValue()])
+            .padding(8)
         }
-        .chartYScale(domain: [getMinValue(), getMaxValue()])
+        .cornerRadius(8)
         .onAppear(perform: calculateChartData)
     }
     
