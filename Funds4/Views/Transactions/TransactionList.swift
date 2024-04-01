@@ -25,12 +25,17 @@ struct TransactionList: View {
             ScrollView {
                 VStack {
                     StatsPanel(openingBalance: $openingBalance, currentBalance: $currentBalance)
+                        .padding([.bottom], 10)
                     FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
-                }.padding()
+                }.padding(.horizontal)
 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("Transactions").font(.title).padding(.vertical)
+                        Text("Transactions")
+                            .font(.title)
+                            .bold()
+                            .padding(.vertical)
+                        
                         ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
                             Text(group.key.dropFirst(3)).font(.caption)
                             ForEach(group.value) { transaction in
@@ -41,8 +46,8 @@ struct TransactionList: View {
                                 })
                                 .foregroundColor(.black)
                             }
-                        }.padding([.vertical], 4)
-                }.padding()
+                        }.padding([.bottom], 5)
+                    }.padding(.horizontal)
 
                 Spacer()
 
