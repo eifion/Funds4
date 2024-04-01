@@ -32,6 +32,7 @@
 		EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */; };
 		EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */; };
 		EF9EDCBE2BB98C94003D6D36 /* FundChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9EDCBD2BB98C94003D6D36 /* FundChart.swift */; };
+		EF9EDCC02BB9BAA6003D6D36 /* FundTransactionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */; };
 		EFAA66852BB6E649001EA269 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = EFAA66842BB6E649001EA269 /* SwiftDate */; };
 		EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
 		EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditor.swift; sourceTree = "<group>"; };
 		EF9EDCBD2BB98C94003D6D36 /* FundChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundChart.swift; sourceTree = "<group>"; };
+		EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundTransactionsList.swift; sourceTree = "<group>"; };
 		EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDaySection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +205,7 @@
 				EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */,
 				EF7B6CCA2BB0961700CA6F92 /* TransactionList.swift */,
 				EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */,
+				EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				EF5A69112BB57D2600DDB156 /* BalanceChangeRow.swift in Sources */,
 				EF6EEA722BB2F30F005C1562 /* TransferEditor.swift in Sources */,
 				EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */,
+				EF9EDCC02BB9BAA6003D6D36 /* FundTransactionsList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

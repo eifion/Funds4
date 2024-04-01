@@ -10,29 +10,26 @@ struct FundStatistics: View {
 
     @State var openingBalance = 0
     @State var currentBalance = 0
-
-    private let calendar = Calendar.current
             
     var body: some View {
-        NavigationView {
             List {
                 Section {
                     BalanceRow(text: "Opening balance", amount: $openingBalance)
                     BalanceRow(text: "Current balance", amount: $currentBalance)
+                    BalanceChangeRow(text: "Overall change", amount: currentBalance - openingBalance)
                 }
-                                
+                                                
                 Section {
                     FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
                 }
-                
-                Section {
-                    BalanceChangeRow(text: "Overall change", amount: currentBalance - openingBalance)
+                                                
+                if funds.count == 1, let fund = funds.first {
+                    FundTransactionsList(fund: fund)
                 }
             }
-            .listStyle(.grouped)
-        }
-        .onAppear(perform: calculateBalances)
-        .navigationTitle(title)
+            .onAppear(perform: calculateBalances)
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)        
     }
     
     func calculateBalances() {
@@ -48,6 +45,8 @@ struct FundStatistics: View {
 
 #Preview {
     ModelContainerPreview(ModelContainer.sample) {
-        FundStatistics(funds: [Fund.mainFund, Fund.house, Fund.bankLoan], title: "Statistics")
+        NavigationView {
+            FundStatistics(funds: [Fund.mainFund], title: "Statistics")
+        }
     }
 }

@@ -12,7 +12,7 @@ struct BalanceChangeRow: View {
             Spacer()
             Text(amount.asCurrency)
                 .foregroundStyle(getColor())
-        }.padding(.horizontal)
+        }
     }
     
     func getColor() -> Color {
