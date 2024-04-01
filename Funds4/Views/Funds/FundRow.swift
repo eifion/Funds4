@@ -3,10 +3,10 @@ import SwiftData
 import SwiftUI
 
 struct FundRow: View {
-    let fund:Fund
+    @State var fund: Fund
     
     var body: some View {
-        NavigationLink(destination: FundStatistics(funds: [fund], title: fund.name), label: {
+        NavigationLink(destination: FundStatistics(title: fund.name, fund: $fund), label: {
             HStack {
                 VStack(alignment: .leading) {
                     Text(fund.name).bold(fund.isDefault)

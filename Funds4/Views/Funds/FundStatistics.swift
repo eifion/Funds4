@@ -3,50 +3,34 @@ import SwiftData
 import SwiftDate
 import SwiftUI
 
-struct FundStatistics: View {
-    var funds: [Fund]    
-    
+struct FundStatistics: View { 
     @State var title: String
-
-    @State var openingBalance = 0
-    @State var currentBalance = 0
+    @Binding var fund: Fund
             
     var body: some View {
             List {
                 Section {
-                    BalanceRow(text: "Opening balance", amount: $openingBalance)
-                    BalanceRow(text: "Current balance", amount: $currentBalance)
-                    BalanceChangeRow(text: "Overall change", amount: currentBalance - openingBalance)
+                    BalanceRow(text: "Opening balance", amount: $fund.openingBalance)
+                    BalanceRow(text: "Current balance", amount: $fund.currentBalance)
+                    BalanceChangeRow(text: "Overall change", amount: fund.currentBalance - fund.openingBalance)
                 }
                                                 
                 Section {
-                    FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
+                    FundChart(funds: [fund], openingBalance: $fund.openingBalance, currentBalance: $fund.currentBalance)
                 }
-                                                
-                if funds.count == 1, let fund = funds.first {
-                    FundTransactionsList(fund: fund)
-                }
+                
+                FundTransactionsList(fund: fund)
             }
-            .onAppear(perform: calculateBalances)
+           
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)        
-    }
-    
-    func calculateBalances() {
-        // Make sure each fund is up-to-date
-        funds.forEach{ fun in
-            fun.calculateCurrentBalance()
-        }
-        
-        openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
-        currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
     }
 }
 
 #Preview {
     ModelContainerPreview(ModelContainer.sample) {
         NavigationView {
-            FundStatistics(funds: [Fund.mainFund], title: "Statistics")
+            FundStatistics(title: "Statistics", fund: .constant(Fund.mainFund))
         }
     }
 }

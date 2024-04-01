@@ -9,11 +9,12 @@ struct TransactionList: View {
     
     @Query var funds: [Fund]
     @Query(sort: \Transaction.startDate, order: .reverse) var transactions: [Transaction]
-    
-    @State private var overallBalance = 0
+        
     @State var showAddTransaction = false
     @State var showAddTransfer = false
     @State var transactionToEdit: Transaction?
+    @State var openingBalance = 0
+    @State var currentBalance = 0
             
     var body: some View {
         // Filter out the outgoing part of transfer transactions.
@@ -23,9 +24,13 @@ struct TransactionList: View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: FundStatistics(funds: funds, title: "Statistics"), label: {
-                        BalanceRow(text: "Overall balance:", amount: $overallBalance)
-                    })
+                    BalanceRow(text: "Opening balance", amount: $openingBalance)
+                    BalanceRow(text: "Current balance", amount: $currentBalance)
+                    BalanceChangeRow(text: "Overall change", amount: currentBalance - openingBalance)
+                }
+                
+                Section {
+                    FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
                 }
                 
                 if (transactions.isEmpty) {
@@ -71,9 +76,9 @@ struct TransactionList: View {
                     }
                 }
             }
+            .navigationTitle("Overview")
         }
         .listStyle(.grouped)
-        .navigationTitle("Transactions")
         .onAppear(perform: checkForFund)
     }
     
@@ -102,8 +107,9 @@ struct TransactionList: View {
     }
 
     func updateOverallBalance() {
-        funds.forEach{ fun in fun.calculateCurrentBalance() }                        
-        overallBalance = funds.reduce(0) { $0 + $1.currentBalance }
+        funds.forEach{ fun in fun.calculateCurrentBalance() }
+        openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
+        currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
     }
 }
 
