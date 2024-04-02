@@ -24,8 +24,6 @@ struct TransactionList: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    StatsPanel(openingBalance: $openingBalance, currentBalance: $currentBalance)
-                        .padding([.bottom], 10)
                     FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
                 }.padding(.horizontal)
 

@@ -14,33 +14,60 @@ struct FundChart: View {
     var body: some View {
         ZStack {
             Color(Color.Chart.background)
-            Chart(data) {
-                BarMark(
-                    x: .value("Date", $0.date, unit: .day),
-                    yStart: .value("Balance", $0.openingBalance),
-                    yEnd: .value("Balance", $0.closingBalance),
-                    width: .automatic
-                )
-                .foregroundStyle($0.color)
-            }
-            .padding(.top)
-            .chartXAxis {
-                AxisMarks { value in
-                    AxisValueLabel()
+            VStack {
+                HStack {
+                    Spacer()
+                    Image(systemName: balanceImageName).font(.title2)
+                    Text(currentBalance.asCurrency)
                 }
-            }
-            .chartYAxis {
-                AxisMarks { value in
-                    AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
+                .font(.title2)
+                .bold()
+                .foregroundStyle(balanceColor)
+                .padding([.top, .trailing], 8)
+                
+                Chart(data) {
+                    BarMark(
+                        x: .value("Date", $0.date, unit: .day),
+                        yStart: .value("Balance", $0.openingBalance),
+                        yEnd: .value("Balance", $0.closingBalance),
+                        width: .automatic
+                    )
+                    .foregroundStyle($0.color)
                 }
+                .chartXAxis {
+                    AxisMarks { value in
+                        AxisValueLabel()
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks { value in
+                        AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
+                    }
+                }
+                .chartYScale(domain: [getMinValue(), getMaxValue()])
+                .padding(8)
             }
-            .chartYScale(domain: [getMinValue(), getMaxValue()])
-            .padding(8)
         }
         .cornerRadius(8)
         .onAppear(perform: calculateChartData)
     }
     
+    var balanceColor : Color {
+        switch currentBalance.signum() {
+        case 1: return Color.positiveAmount
+        case -1: return Color.negativeAmount
+        default: return Color.zeroAmount
+        }
+    }
+    
+    var balanceImageName: String {
+        switch currentBalance.signum() {
+        case 1: return "arrow.up"
+        case -1: return "arrow.down"
+        default: return "arrow.right"
+        }
+    }
+        
     func calculateChartData() {
         data = []
         
@@ -103,5 +130,6 @@ struct ChartPoint: Identifiable {
 #Preview {
     ModelContainerPreview(ModelContainer.sample) {
         FundChart(funds: [Fund.mainFund], openingBalance: .constant(-1000), currentBalance: .constant(-1000))
+            .frame(height: 200)
     }
 }
