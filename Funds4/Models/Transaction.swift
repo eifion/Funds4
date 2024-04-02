@@ -26,11 +26,12 @@ final class Transaction: Identifiable {
     var color: Color {
         // If the amount is negative its an outgoing.
         if (self.amount < 0) {
-           return Color.red
+            return Color.negativeAmount
         }
-
+        
         // Otherwise it's either an incoming or a transfer.
-        return self.transferTransaction == nil ? Color.green : Color.gray    }
+        return self.transferTransaction == nil ? Color.positiveAmount : Color.zeroAmount
+    }
     
     @Transient
     var displayAmount: String {

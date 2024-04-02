@@ -18,11 +18,11 @@ struct BalanceChangeRow: View {
     func getColor() -> Color {
         switch(amount.signum()) {
         case -1:
-            return Color.red
+            return Color.negativeAmount
         case 1:
-            return Color.green
+            return Color.positiveAmount
         default:
-            return Color.gray
+            return Color.zeroAmount
         }
     }
 }

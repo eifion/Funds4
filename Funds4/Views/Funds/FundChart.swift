@@ -1,4 +1,5 @@
 import Charts
+import SwiftData
 import SwiftDate
 import SwiftUI
 
@@ -12,7 +13,7 @@ struct FundChart: View {
     
     var body: some View {
         ZStack {
-            Color(red: 0.95, green: 0.95, blue: 0.95)
+            Color(Color.Chart.background)
             Chart(data) {
                 BarMark(
                     x: .value("Date", $0.date, unit: .day),
@@ -94,10 +95,13 @@ struct ChartPoint: Identifiable {
     var closingBalance: Double
                 
     var color: Color {
-        closingBalance < openingBalance ? .red : .green
+        closingBalance < openingBalance ? Color.negativeAmount :
+            Color.positiveAmount
     }
 }
 
 #Preview {
-    FundChart(funds: [], openingBalance: .constant(0), currentBalance: .constant(100))
+    ModelContainerPreview(ModelContainer.sample) {
+        FundChart(funds: [Fund.mainFund], openingBalance: .constant(-1000), currentBalance: .constant(-1000))
+    }
 }

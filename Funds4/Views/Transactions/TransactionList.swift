@@ -44,7 +44,7 @@ struct TransactionList: View {
                                 }, label: {
                                     TransactionRow(transaction: transaction)
                                 })
-                                .foregroundColor(.black)
+                                .foregroundColor(.primary)
                             }
                         }.padding([.bottom], 5)
                     }.padding(.horizontal)

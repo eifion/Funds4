@@ -7,14 +7,13 @@ struct StatsPanel: View {
     
     var body: some View {
         ZStack {
-            Color(getColor())
+            Color(getBackgroundColor())
             
             VStack {
                 Spacer()
                 
                 HStack {
                     Image(systemName: getArrowName())
-                        .foregroundColor(.white)
                         .font(.largeTitle)
                         .bold()
                     
@@ -34,19 +33,28 @@ struct StatsPanel: View {
                 
                 Spacer()
             }
-            .foregroundColor(.white)
+            .foregroundColor(getForegroundColor())
             .padding([.horizontal], 8)
         }
         .cornerRadius(8)
         .frame(height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
     }
     
-    func getColor() -> Color {
+    func getBackgroundColor() -> Color {
         switch (currentBalance - openingBalance).signum() {
-        case 1: return Color.green
-        case -1: return Color.red
-        default: return Color.gray
+        case 1: return Color.Stats.backgroundPositive
+        case -1: return Color.Stats.backgroundNegative
+        default: return Color.Stats.backgroundZero
         }
+    }
+    
+    func getForegroundColor() -> Color {
+        switch (currentBalance - openingBalance).signum() {
+        case 1: return Color.Stats.foregroundPositive
+        case -1: return Color.Stats.foregroundNegative
+        default: return Color.Stats.foregroundZero
+        }
+
     }
     
     func getArrowName() -> String {
@@ -65,7 +73,7 @@ struct StatsPanel: View {
 #Preview("In Row") {
     VStack {
         HStack {
-            StatsPanel(openingBalance: .constant(1000000), currentBalance: .constant(555555))
+            StatsPanel(openingBalance: .constant(0), currentBalance: .constant(1))
         }
         
         Spacer()

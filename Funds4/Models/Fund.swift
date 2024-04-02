@@ -27,11 +27,11 @@ final class Fund {
     var currentDisplayColour: Color {
         switch(currentBalance.signum()) {
         case -1:
-            return Color.red
+            return Color.negativeAmount
         case 1:
-            return Color.green
+            return Color.positiveAmount
         default:
-            return Color.black
+            return Color.zeroAmount
         }
     }
     
