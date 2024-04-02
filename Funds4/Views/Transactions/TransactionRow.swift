@@ -5,18 +5,27 @@ struct TransactionRow: View {
     let transaction: Transaction
     
     var body: some View {
-        HStack {
-            Image(systemName: transaction.iconName).foregroundColor(transaction.color)
-            VStack(alignment: .leading) {
-                Text(transaction.displayDate).font(.caption)
-                Text("\(transaction.name)")
+        VStack {
+            HStack {
+                Image(systemName: transaction.iconName).foregroundColor(transaction.color)
+               
+
+                VStack(alignment: .leading) {
+                    Text(transaction.displayDate).font(.caption)
+                    Text("\(transaction.name)")
+                }
+
+                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    Text(transaction.fundName).font(.caption)
+                    Text(transaction.displayAmount)
+                }
             }
-            Spacer()
-            VStack(alignment: .trailing) {
-                Text(transaction.fundName).font(.caption)
-                Text(transaction.displayAmount)
-            }
-        }.padding(.bottom)
+            .padding(8)
+        }
+        .background(Color.Chart.background)
+        .cornerRadius(8)        
     }
 }
 

@@ -25,32 +25,36 @@ struct TransactionList: View {
             ScrollView {
                 VStack {
                     FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
-                }.padding(.horizontal)
-
-                HStack {
-                    VStack(alignment: .leading) {
+                    
+                    HStack {
                         Text("Transactions")
                             .font(.title)
                             .bold()
                             .padding(.vertical)
+                        Spacer()
+                    }
+                    
+                    ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
                         
-                        ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
-                            Text(group.key.dropFirst(3)).font(.caption)
-                            ForEach(group.value) { transaction in
-                                Button(action: {
-                                    transactionToEdit = transaction
-                                }, label: {
-                                    TransactionRow(transaction: transaction)
-                                })
-                                .foregroundColor(.primary)
-                            }
-                        }.padding([.bottom], 5)
-                    }.padding(.horizontal)
+                        HStack {
+                            Text(group.key.dropFirst(3)).font(.subheadline)
+                            Spacer()
+                        }
+                        
+                        ForEach(group.value) { transaction in
+                            Button(action: {
+                                transactionToEdit = transaction
+                            }, label: {
+                                TransactionRow(transaction: transaction)
+                            })
+                            .foregroundColor(.primary)
+                        }
+                    }
+                    
+                }
 
-                Spacer()
-
-                }.backgroundStyle(.blue)                
             }
+            .padding()
             .sheet(isPresented: $showAddTransaction, onDismiss: updateOverallBalance) {
                 let defaultFund = funds.first(where: { $0.isDefault })
                 TransactionEditor(fund: defaultFund!, transactionToEdit: nil as Transaction?)

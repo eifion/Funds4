@@ -45,7 +45,7 @@ struct FundChart: View {
                     }
                 }
                 .chartYScale(domain: [getMinValue(), getMaxValue()])
-                .padding(8)
+                .padding([.leading, .trailing, .bottom ],8)
             }
         }
         .cornerRadius(8)
