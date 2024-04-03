@@ -80,16 +80,25 @@ struct TransactionEditor: View {
                     .frame(height: rowHeight)
                 }
                 
+                if transactionToEdit != nil {
+                    Button("Delete") {
+                        delete()
+                        dismiss()
+                    }
+                    .padding()
+                    .foregroundColor(.red)
+                }
+                
                 Spacer()
                             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismiss()
                     }
                 }
                 
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button(buttonText) {
                         withAnimation {
                             save()
@@ -151,6 +160,12 @@ struct TransactionEditor: View {
             modelContext.insert(newTransaction)
         }
         fund.calculateCurrentBalance()
+    }
+    
+    private func delete() {
+        if let transactionToEdit {
+            modelContext.delete(transactionToEdit)
+        }
     }
 }
 
