@@ -17,10 +17,9 @@ struct FundChart: View {
             VStack {
                 HStack {
                     Spacer()
-                    Image(systemName: balanceImageName).font(.title2)
-                    Text(currentBalance.asCurrency)
+                    Text("\(currentBalance.asCurrency) (\((currentBalance - openingBalance).asCurrency))")
                 }
-                .font(.title2)
+                .font(.title3)
                 .bold()
                 .foregroundStyle(balanceColor)
                 .padding([.top, .trailing], 8)
@@ -58,15 +57,7 @@ struct FundChart: View {
         case -1: return Color.negativeAmount
         default: return Color.zeroAmount
         }
-    }
-    
-    var balanceImageName: String {
-        switch currentBalance.signum() {
-        case 1: return "arrow.up"
-        case -1: return "arrow.down"
-        default: return "arrow.right"
-        }
-    }
+    }        
         
     func calculateChartData() {
         data = []
