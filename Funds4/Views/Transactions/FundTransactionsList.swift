@@ -1,10 +1,4 @@
-//
-//  FundTransactionsList.swift
-//  Funds4
-//
-//  Created by Eifion Bedford on 31/03/2024.
-//
-
+import SwiftData
 import SwiftUI
 
 struct FundTransactionsList: View {
@@ -26,6 +20,8 @@ struct FundTransactionsList: View {
     }
 }
 
-//#Preview {
-//    FundTransactionsList()
-//}
+#Preview {
+    ModelContainerPreview(ModelContainer.sample) {
+        FundTransactionsList(fund: Fund.mainFund)
+    }
+}

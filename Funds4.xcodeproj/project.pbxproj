@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF3B69BF2BBF2C8D00271C56 /* ChartPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3B69BE2BBF2C8D00271C56 /* ChartPoint.swift */; };
+		EF3B69C12BBF32BC00271C56 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3B69C02BBF32BC00271C56 /* ChartViewModel.swift */; };
 		EF5A690D2BB5751C00DDB156 /* FundStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A690C2BB5751C00DDB156 /* FundStatistics.swift */; };
 		EF5A690F2BB5779800DDB156 /* BalanceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A690E2BB5779800DDB156 /* BalanceRow.swift */; };
 		EF5A69112BB57D2600DDB156 /* BalanceChangeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5A69102BB57D2600DDB156 /* BalanceChangeRow.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF3B69BE2BBF2C8D00271C56 /* ChartPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartPoint.swift; sourceTree = "<group>"; };
+		EF3B69C02BBF32BC00271C56 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
 		EF5A690C2BB5751C00DDB156 /* FundStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundStatistics.swift; sourceTree = "<group>"; };
 		EF5A690E2BB5779800DDB156 /* BalanceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceRow.swift; sourceTree = "<group>"; };
 		EF5A69102BB57D2600DDB156 /* BalanceChangeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceChangeRow.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			children = (
 				EF7B6CC52BB0922F00CA6F92 /* Fund.swift */,
 				EF7B6CC72BB092AE00CA6F92 /* Transaction.swift */,
+				EF3B69BE2BBF2C8D00271C56 /* ChartPoint.swift */,
+				EF3B69C02BBF32BC00271C56 /* ChartViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -292,11 +298,13 @@
 				EF5A690D2BB5751C00DDB156 /* FundStatistics.swift in Sources */,
 				EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */,
 				EF7B6CE02BB0D7BE00CA6F92 /* FundDetails.swift in Sources */,
+				EF3B69C12BBF32BC00271C56 /* ChartViewModel.swift in Sources */,
 				EF7B6CD02BB09EF400CA6F92 /* FundList.swift in Sources */,
 				EF7B6CE22BB0D87200CA6F92 /* FundRow.swift in Sources */,
 				EF5A690F2BB5779800DDB156 /* BalanceRow.swift in Sources */,
 				EF9EDCBE2BB98C94003D6D36 /* FundChart.swift in Sources */,
 				EF7B6CCB2BB0961700CA6F92 /* TransactionList.swift in Sources */,
+				EF3B69BF2BBF2C8D00271C56 /* ChartPoint.swift in Sources */,
 				EF7B6CD92BB0D47400CA6F92 /* Preview-ModelContainer.swift in Sources */,
 				EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */,
 				EF7B6CD42BB0CE4500CA6F92 /* Bool-Extensions.swift in Sources */,
@@ -460,6 +468,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fuelledbytea.Funds4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -489,6 +498,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fuelledbytea.Funds4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

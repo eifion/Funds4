@@ -14,6 +14,6 @@ struct BalanceRow: View {
     }
 }
 
-//#Preview {
-//    BalanceRow(text: "Opening balance", amount: .constant(99999))
-//}
+#Preview {
+    BalanceRow(text: "Opening balance", amount: .constant(99999))
+}

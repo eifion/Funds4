@@ -6,6 +6,7 @@ struct TransactionList: View {
     @Binding var showAddFund: Bool
     
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) var scenePhase
     
     @Query var funds: [Fund]
     @Query(sort: \Transaction.startDate, order: .reverse) var transactions: [Transaction]
@@ -13,8 +14,7 @@ struct TransactionList: View {
     @State var showAddTransaction = false
     @State var showAddTransfer = false
     @State var transactionToEdit: Transaction?
-    @State var openingBalance = 0
-    @State var currentBalance = 0
+    @State var chartViewModel: ChartViewModel = ChartViewModel()
             
     var body: some View {
         // Filter out the outgoing part of transfer transactions.
@@ -24,7 +24,7 @@ struct TransactionList: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    FundChart(funds: funds, openingBalance: $openingBalance, currentBalance: $currentBalance)
+                    FundChart(chartViewModel: $chartViewModel)
                     
                     HStack {
                         Text("Transactions")
@@ -85,6 +85,11 @@ struct TransactionList: View {
             }
             .navigationTitle("Overview")
             .onAppear(perform: checkForFund)
+            .onChange(of: scenePhase) {
+                if (scenePhase == .active) {
+                    updateOverallBalance()
+                }
+            }
         }
     }
     
@@ -96,7 +101,6 @@ struct TransactionList: View {
             self.selectedTab = 2;
             self.showAddFund = true
         }
-        
         updateOverallBalance()
     }
     
@@ -114,8 +118,7 @@ struct TransactionList: View {
 
     func updateOverallBalance() {
         funds.forEach{ fun in fun.calculateCurrentBalance() }
-        openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
-        currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
+            chartViewModel.funds = funds
     }
 }
 

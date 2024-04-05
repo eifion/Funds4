@@ -16,7 +16,7 @@ struct FundStatistics: View {
                 }
                                                 
                 Section {
-                    FundChart(funds: [fund], openingBalance: $fund.openingBalance, currentBalance: $fund.currentBalance)
+                    //FundChart(funds: [fund], openingBalance: $fund.openingBalance, currentBalance: $fund.currentBalance)
                 }
                 
                 FundTransactionsList(fund: fund)
