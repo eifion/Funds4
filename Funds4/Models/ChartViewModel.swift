@@ -66,11 +66,16 @@ import SwiftUI
             let balanceOnDay = Double(funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))} / 100)
             
             // If the start and end values are the same, alter them slightly so that a line shows.
-            if startBalance.distance(to: balanceOnDay) < minimumDifference {
-                data.append(ChartPoint(date: startDate, openingBalance: startBalance + minimumDifference, closingBalance: balanceOnDay - minimumDifference, color: .zeroAmount))
+            if startBalance.distance(to: balanceOnDay).magnitude < minimumDifference {
+                data.append(ChartPoint(
+                    date: startDate, openingBalance: startBalance + minimumDifference, closingBalance: balanceOnDay - minimumDifference, color: .zeroAmount))
             }
             else {
-                data.append(ChartPoint(date: startDate, openingBalance: startBalance, closingBalance: balanceOnDay, color: balanceOnDay > startBalance ? .positiveAmount : .negativeAmount))
+                data.append(ChartPoint(
+                    date: startDate, 
+                    openingBalance: startBalance,
+                    closingBalance: balanceOnDay,
+                    color: balanceOnDay > startBalance ? .green : .red))
             }
             startDate = startDate + 1.days
             startBalance = balanceOnDay

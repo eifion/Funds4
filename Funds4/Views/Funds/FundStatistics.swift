@@ -5,25 +5,22 @@ import SwiftUI
 
 struct FundStatistics: View { 
     @State var title: String
+    @State var chartViewModel: ChartViewModel = ChartViewModel()
     @Binding var fund: Fund
             
     var body: some View {
-            List {
-                Section {
-                    BalanceRow(text: "Opening balance", amount: $fund.openingBalance)
-                    BalanceRow(text: "Current balance", amount: $fund.currentBalance)
-                    BalanceChangeRow(text: "Overall change", amount: fund.currentBalance - fund.openingBalance)
-                }
-                                                
-                Section {
-                    //FundChart(funds: [fund], openingBalance: $fund.openingBalance, currentBalance: $fund.currentBalance)
+            List {                                                
+                Section {          
+                    FundChart(chartViewModel: $chartViewModel)
                 }
                 
                 FundTransactionsList(fund: fund)
             }
-           
             .navigationTitle(title)
-            .navigationBarTitleDisplayMode(.inline)        
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear(perform: {
+                chartViewModel.funds = [fund]
+            })
     }
 }
 
