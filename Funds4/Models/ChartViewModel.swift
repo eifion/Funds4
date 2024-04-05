@@ -52,21 +52,28 @@ import SwiftUI
                 
         openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
         currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
-
-        var startBalance = Double(openingBalance / 100)
-        while (startDate <= Date.now) {
-            let balanceOnDay = funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))}
-            data.append(ChartPoint(date: startDate, openingBalance: startBalance, closingBalance: Double(balanceOnDay) / 100.0))
-
-            startDate = startDate + 1.days
-            startBalance = Double(balanceOnDay) / 100.0
-        }
-
+        
         let diff = abs(Double(currentBalance - openingBalance) / 100.0)
         let exp = floor(log10(diff))
         graphGranularity = Int(pow(Double(10.0), exp))
         if (graphGranularity == 0) {
             graphGranularity = 1
+        }
+        
+        let minimumDifference = Double(graphGranularity) / 100.0
+        var startBalance = Double(openingBalance / 100)
+        while (startDate <= Date.now) {
+            let balanceOnDay = Double(funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))} / 100)
+            
+            // If the start and end values are the same, alter them slightly so that a line shows.
+            if startBalance.distance(to: balanceOnDay) < minimumDifference {
+                data.append(ChartPoint(date: startDate, openingBalance: startBalance + minimumDifference, closingBalance: balanceOnDay - minimumDifference))
+            }
+            else {
+                data.append(ChartPoint(date: startDate, openingBalance: startBalance, closingBalance: balanceOnDay))
+            }
+            startDate = startDate + 1.days
+            startBalance = balanceOnDay
         }
         
         chartPoints = data
