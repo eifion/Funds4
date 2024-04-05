@@ -67,10 +67,10 @@ import SwiftUI
             
             // If the start and end values are the same, alter them slightly so that a line shows.
             if startBalance.distance(to: balanceOnDay) < minimumDifference {
-                data.append(ChartPoint(date: startDate, openingBalance: startBalance + minimumDifference, closingBalance: balanceOnDay - minimumDifference))
+                data.append(ChartPoint(date: startDate, openingBalance: startBalance + minimumDifference, closingBalance: balanceOnDay - minimumDifference, color: .zeroAmount))
             }
             else {
-                data.append(ChartPoint(date: startDate, openingBalance: startBalance, closingBalance: balanceOnDay))
+                data.append(ChartPoint(date: startDate, openingBalance: startBalance, closingBalance: balanceOnDay, color: balanceOnDay > startBalance ? .positiveAmount : .negativeAmount))
             }
             startDate = startDate + 1.days
             startBalance = balanceOnDay

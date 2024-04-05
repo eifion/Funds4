@@ -5,10 +5,6 @@ struct ChartPoint: Identifiable {
     var id = UUID()
     var date: Date
     var openingBalance: Double
-    var closingBalance: Double
-                
-    var color: Color {
-        closingBalance < openingBalance ? Color.negativeAmount :
-            Color.positiveAmount
-    }
+    var closingBalance: Double                
+    var color: Color
 }
