@@ -35,19 +35,12 @@ struct TransactionList: View {
                     }
                     
                     ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
-                        
-                        HStack {
-                            Text(group.key.dropFirst(3)).font(.subheadline)
-                            Spacer()
-                        }
-                        
-                        ForEach(group.value) { transaction in
-                            Button(action: {
-                                transactionToEdit = transaction
-                            }, label: {
-                                TransactionRow(transaction: transaction)
-                            })
-                            .foregroundColor(.primary)
+                        let titleParts = group.key.components(separatedBy: "_")
+                        if (titleParts.count == 2 && group.value.count > 0) {
+                            TransactionGroup(title: titleParts[1],
+                             transactions: group.value,
+                             isExpanded: Int(titleParts[0], radix: 10) ?? 0 < 4,
+                             transactionToEdit: $transactionToEdit)
                         }
                     }
                     

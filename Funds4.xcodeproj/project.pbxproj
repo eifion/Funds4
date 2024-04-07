@@ -37,6 +37,7 @@
 		EF9EDCC02BB9BAA6003D6D36 /* FundTransactionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */; };
 		EFAA66852BB6E649001EA269 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = EFAA66842BB6E649001EA269 /* SwiftDate */; };
 		EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */; };
+		EFDF1E222BC2D96F00A397AF /* TransactionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDF1E212BC2D96F00A397AF /* TransactionGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		EF9EDCBD2BB98C94003D6D36 /* FundChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundChart.swift; sourceTree = "<group>"; };
 		EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundTransactionsList.swift; sourceTree = "<group>"; };
 		EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDaySection.swift; sourceTree = "<group>"; };
+		EFDF1E212BC2D96F00A397AF /* TransactionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 				EF7B6CCA2BB0961700CA6F92 /* TransactionList.swift */,
 				EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */,
 				EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */,
+				EFDF1E212BC2D96F00A397AF /* TransactionGroup.swift */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				EF7B6CD92BB0D47400CA6F92 /* Preview-ModelContainer.swift in Sources */,
 				EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */,
 				EF7B6CD42BB0CE4500CA6F92 /* Bool-Extensions.swift in Sources */,
+				EFDF1E222BC2D96F00A397AF /* TransactionGroup.swift in Sources */,
 				EF7B6CDC2BB0D49E00CA6F92 /* SampleData-Fund.swift in Sources */,
 				EF7B6CB92BB0916900CA6F92 /* ContentView.swift in Sources */,
 				EF7B6CC82BB092AE00CA6F92 /* Transaction.swift in Sources */,
