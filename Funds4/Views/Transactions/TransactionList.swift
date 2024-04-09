@@ -2,6 +2,8 @@ import SwiftData
 import SwiftUI
 
 struct TransactionList: View {
+    @AppStorage("LastDayUpdate") private var lastDayUpdate = 0
+    
     @Binding var selectedTab: Int
     @Binding var showAddFund: Bool
     
@@ -15,12 +17,10 @@ struct TransactionList: View {
     @State var showAddTransfer = false
     @State var transactionToEdit: Transaction?
     @State var chartViewModel: ChartViewModel = ChartViewModel()
+    @State var groupedTransactions: [TransactionGroupViewModel] = []
             
     var body: some View {
         // Filter out the outgoing part of transfer transactions.
-        let filteredTransactions = transactions.filter{ $0.amount > 0 || ($0.transferTransaction == nil && $0.amount < 0) }
-        let groupedTransactions = Dictionary(grouping: filteredTransactions, by: {$0.orderedDisplayDate()})
-        
         NavigationView {
             ScrollView {
                 VStack {
@@ -34,16 +34,11 @@ struct TransactionList: View {
                         Spacer()
                     }
                     
-                    ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
-                        let titleParts = group.key.components(separatedBy: "_")
-                        if (titleParts.count == 2 && group.value.count > 0) {
-                            TransactionGroup(title: titleParts[1],
-                             transactions: group.value,
-                             isExpanded: Int(titleParts[0], radix: 10) ?? 0 < 4,
-                             transactionToEdit: $transactionToEdit)
-                        }
+                    ForEach($groupedTransactions.sorted(by: { $0.id < $1.id })) { group in
+                        TransactionGroup(
+                            group: group,
+                            transactionToEdit: $transactionToEdit)
                     }
-                    
                 }
 
             }
@@ -94,7 +89,12 @@ struct TransactionList: View {
             self.selectedTab = 2;
             self.showAddFund = true
         }
-        updateOverallBalance()
+        // If this is the first time that the list is being displayed today, update the balances.
+        let currentDayOfYear = Date.now.dayOfYear
+        if lastDayUpdate != currentDayOfYear {
+            updateOverallBalance()
+            lastDayUpdate = currentDayOfYear
+        }
     }
     
     private func deleteTransaction(_ transaction: Transaction) {  
@@ -110,8 +110,22 @@ struct TransactionList: View {
     }
 
     func updateOverallBalance() {
+        let groupedTransactionsDictionary = Dictionary(grouping: transactions.filter{ $0.amount > 0 || ($0.transferTransaction == nil && $0.amount < 0) }, by: {$0.orderedDisplayDate()})
+        groupedTransactions = []
+        groupedTransactionsDictionary.keys.forEach { key in
+            
+            let keyParts = key.components(separatedBy: "_")
+            let transactions = groupedTransactionsDictionary[key] ?? []
+            if (keyParts.count == 2 && transactions.count > 0) {
+                groupedTransactions.append(TransactionGroupViewModel(
+                    id: Int(keyParts[0], radix: 10) ?? 0,
+                    title: keyParts[1],
+                    transactions: groupedTransactionsDictionary[key] ?? []))
+            }
+        }
+                        
         funds.forEach{ fun in fun.calculateCurrentBalance() }
-            chartViewModel.funds = funds
+        chartViewModel.funds = funds
     }
 }
 

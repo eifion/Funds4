@@ -1,31 +1,37 @@
+import SwiftData
 import SwiftUI
 
 struct TransactionGroup: View {
-    @State var title: String
-    @State var transactions: [Transaction]
-    @State var isExpanded: Bool
-
+    @State var isExpanded: Bool = false
+    @Binding var group: TransactionGroupViewModel
     @Binding var transactionToEdit: Transaction?
     
-    
     var body: some View {
-        DisclosureGroup(
-            title,
-            isExpanded: $isExpanded)
-            {
-            ForEach(transactions) { transaction in
-                Button(action: {
-                    transactionToEdit = transaction
-                }, label: {
-                    TransactionRow(transaction: transaction)
-                })
-                .padding(.bottom, 4.0)
-                .foregroundColor(.primary)
-            }
-            }.tint(Color.primary)
+            DisclosureGroup(
+                group.title,
+                isExpanded: $isExpanded)
+                {
+                    ForEach(group.transactions) { transaction in
+                        Button(action: {
+                            transactionToEdit = transaction
+                        }, label: {
+                            TransactionRow(transaction: transaction)
+                        })
+                        .padding(.bottom, 4.0)
+                        .foregroundColor(.primary)
+                    }
+               }
+                .tint(Color.primary)
+                .onAppear(perform: setup)
+    }
+    
+    func setup() {
+        isExpanded = group.isExpanded
     }
 }
 
 #Preview {
-    TransactionGroup(title: "01_Yesterday", transactions: [], isExpanded: true,  transactionToEdit: .constant(nil))
+    ModelContainerPreview(ModelContainer.sample) {
+        TransactionGroup(group: .constant(TransactionGroupViewModel(id: 1, title: "Test", transactions: [])), transactionToEdit: .constant(Transaction.book))
+    }
 }

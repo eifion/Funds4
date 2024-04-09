@@ -35,6 +35,7 @@
 		EF7B6CEA2BB18D7D00CA6F92 /* TransactionEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */; };
 		EF9EDCBE2BB98C94003D6D36 /* FundChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9EDCBD2BB98C94003D6D36 /* FundChart.swift */; };
 		EF9EDCC02BB9BAA6003D6D36 /* FundTransactionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */; };
+		EFA2A1872BC48282006224D6 /* TransactionGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2A1862BC48282006224D6 /* TransactionGroupViewModel.swift */; };
 		EFAA66852BB6E649001EA269 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = EFAA66842BB6E649001EA269 /* SwiftDate */; };
 		EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */; };
 		EFDF1E222BC2D96F00A397AF /* TransactionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDF1E212BC2D96F00A397AF /* TransactionGroup.swift */; };
@@ -70,6 +71,7 @@
 		EF7B6CE92BB18D7D00CA6F92 /* TransactionEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionEditor.swift; sourceTree = "<group>"; };
 		EF9EDCBD2BB98C94003D6D36 /* FundChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundChart.swift; sourceTree = "<group>"; };
 		EF9EDCBF2BB9BAA6003D6D36 /* FundTransactionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundTransactionsList.swift; sourceTree = "<group>"; };
+		EFA2A1862BC48282006224D6 /* TransactionGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionGroupViewModel.swift; sourceTree = "<group>"; };
 		EFD3F2DC2BB1EE3D00DB805D /* TransactionDaySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDaySection.swift; sourceTree = "<group>"; };
 		EFDF1E212BC2D96F00A397AF /* TransactionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,6 +152,7 @@
 				EF7B6CC72BB092AE00CA6F92 /* Transaction.swift */,
 				EF3B69BE2BBF2C8D00271C56 /* ChartPoint.swift */,
 				EF3B69C02BBF32BC00271C56 /* ChartViewModel.swift */,
+				EFA2A1862BC48282006224D6 /* TransactionGroupViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				EF7B6CB92BB0916900CA6F92 /* ContentView.swift in Sources */,
 				EF7B6CC82BB092AE00CA6F92 /* Transaction.swift in Sources */,
 				EF7B6CB72BB0916900CA6F92 /* Funds4App.swift in Sources */,
+				EFA2A1872BC48282006224D6 /* TransactionGroupViewModel.swift in Sources */,
 				EF7B6CD72BB0D44A00CA6F92 /* ModelContainerPreview.swift in Sources */,
 				EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */,
 				EF7B6CD22BB0A77300CA6F92 /* FundEditor.swift in Sources */,
@@ -472,7 +476,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fuelledbytea.Funds4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -502,7 +506,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fuelledbytea.Funds4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
