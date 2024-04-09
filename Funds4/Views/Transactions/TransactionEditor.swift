@@ -164,6 +164,14 @@ struct TransactionEditor: View {
     
     private func delete() {
         if let transactionToEdit {
+            // If we're deleting a transfer, make sure to delete both parts.
+            if let transferTransaction = transactionToEdit.transferTransaction
+            {
+                print("Deleting transfer transaction \(transferTransaction.id)")
+                modelContext.delete(transferTransaction)
+            }
+                                        
+            print("Deleting transaction \(transactionToEdit.id)")
             modelContext.delete(transactionToEdit)
         }
     }

@@ -20,7 +20,6 @@ struct TransactionList: View {
     @State var groupedTransactions: [TransactionGroupViewModel] = []
             
     var body: some View {
-        // Filter out the outgoing part of transfer transactions.
         NavigationView {
             ScrollView {
                 VStack {
@@ -110,7 +109,10 @@ struct TransactionList: View {
     }
 
     func updateOverallBalance() {
-        let groupedTransactionsDictionary = Dictionary(grouping: transactions.filter{ $0.amount > 0 || ($0.transferTransaction == nil && $0.amount < 0) }, by: {$0.orderedDisplayDate()})
+        print("There are \(transactions.count) transactions.")
+        let filteredTransactions = transactions.filter{ $0.amount > 0 || ($0.transferTransaction == nil && $0.amount < 0) }
+        print("There are \(filteredTransactions.count) transactions.")
+        let groupedTransactionsDictionary = Dictionary(grouping: filteredTransactions, by: {$0.orderedDisplayDate()})
         groupedTransactions = []
         groupedTransactionsDictionary.keys.forEach { key in
             
