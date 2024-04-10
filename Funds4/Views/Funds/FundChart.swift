@@ -32,12 +32,15 @@ struct FundChart: View {
                     .chartXAxis {
                         AxisMarks { value in
                             AxisValueLabel()
+                            AxisGridLine()
                         }
                     }
                     .chartYAxis {
                         AxisMarks { value in
                             AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
+                            AxisGridLine()
                         }
+                        
                     }
                     .chartYScale(domain: [chartViewModel.getMinValue(), chartViewModel.getMaxValue()])
                     .padding([.leading, .trailing, .bottom ],8)
@@ -50,7 +53,10 @@ struct FundChart: View {
 
 #Preview {
     ModelContainerPreview(ModelContainer.sample) {
-        FundChart(chartViewModel: .constant(ChartViewModel()))
+        let cvm = ChartViewModel()
+        cvm.chartPoints.append(ChartPoint(date: Date.now, openingBalance: 0, closingBalance: 100, color: .positiveAmount))
+        
+        return FundChart(chartViewModel: .constant(cvm))
             .frame(height: 200)
     }
 }
