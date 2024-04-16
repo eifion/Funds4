@@ -12,11 +12,15 @@ struct FundChart: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Text("\(chartViewModel.currentBalance.asCurrency) (\((chartViewModel.currentBalance - chartViewModel.openingBalance).asCurrency))")
+                        Text("\(chartViewModel.currentBalance.asCurrency)")
+                            .foregroundStyle(chartViewModel.getBalanceColor())
+
+                        Text("(\((chartViewModel.getChange()).asCurrency))")
+                            .foregroundStyle(chartViewModel.getChangeColor())
+
                     }
-                    .font(.title3)
+                    .font(.headline)
                     .bold()
-                    .foregroundStyle(chartViewModel.getBalanceColor())
                     .padding([.top, .trailing], 8)
 
     
@@ -37,7 +41,7 @@ struct FundChart: View {
                     }
                     .chartYAxis {
                         AxisMarks { value in
-                            AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP")), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
+                            AxisValueLabel((value.as(Double.self) ?? 0).formatted(.currency(code: "GBP").precision(.fractionLength(0...0))), centered: false, anchor: nil, multiLabelAlignment: .trailing, collisionResolution: .automatic, offsetsMarks: false, orientation: .horizontal, horizontalSpacing: nil, verticalSpacing: nil)
                             AxisGridLine()
                         }
                         

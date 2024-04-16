@@ -14,6 +14,18 @@ import SwiftUI
             updateChartData()
         }
     }
+    
+    func getChange() -> Int {
+        currentBalance - openingBalance
+    }
+    
+    func getChangeColor() -> Color {
+        switch getChange().signum() {
+            case 1: return Color.positiveAmount
+            case -1: return Color.negativeAmount
+            default: return Color.zeroAmount
+        }
+    }
                 
     func getBalanceColor() -> Color {
         switch currentBalance.signum() {
@@ -30,7 +42,8 @@ import SwiftUI
 
         let minOpening = Int(chartPoints.min(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0)
         let minClosing = Int(chartPoints.min(by: { $0.closingBalance < $1.closingBalance })?.closingBalance ?? 0)
-        return (minOpening < minClosing ? minOpening : minClosing) - graphGranularity
+        let graphMin = (min(minOpening, minClosing) / graphGranularity * graphGranularity) - (graphGranularity * 2)        
+        return graphMin
     }
     
     func getMaxValue() -> Int {
@@ -40,47 +53,91 @@ import SwiftUI
 
         let maxOpening = Int(chartPoints.max(by: { $0.openingBalance < $1.openingBalance })?.openingBalance ?? 0)
         let maxClosing = Int(chartPoints.max(by: { $0.closingBalance < $1.closingBalance })?.closingBalance ?? 0)
-        return  (maxOpening > maxClosing ? maxOpening : maxClosing) + graphGranularity
+        let graphMax = (max(maxOpening, maxClosing) / graphGranularity * graphGranularity) + (graphGranularity * 2)
+        return graphMax
     }
             
     func updateChartData() {
-        var data = [ChartPoint]()
+        let days = 30 //TODO: This will come from a picker control.
         
-        let minFundStartDate =  funds.min(by: { $0.startDate < $1.startDate })?.startDate.toDate()?.date ?? Date.distantPast
-        let minStartDate = Date.now - 30.days
-        var startDate = minFundStartDate.laterDate(minStartDate)
-                
         openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
         currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
         
-        let diff = abs(Double(currentBalance - openingBalance) / 100.0)
-        let exp = floor(log10(diff))
-        graphGranularity = Int(pow(Double(10.0), exp))
-        if (graphGranularity == 0) {
-            graphGranularity = 1
-        }
+        var data = [ChartPoint]()
         
-        let minimumDifference = Double(graphGranularity) / 100.0
-        var startBalance = Double(openingBalance / 100)
-        while (startDate <= Date.now) {
-            let balanceOnDay = Double(funds.reduce(0) { $0 + $1.calculateBalanceOnDate(startDate.toISO(.withFullDate))} / 100)
+        // Get the earliest date that a fund starts on.
+        let minFundStartDate =  funds.min(by: { $0.startDate < $1.startDate })?.startDate.toDate()?.date ?? Date.distantPast
+        let graphStartDate = (Date.now - days.days).dateAtStartOf(.day)
+                
+        var balances = [Int?]()
+        var gsd = graphStartDate
+        while(gsd <= Date.now.dateAtStartOf(.day)) {
+            if (gsd <= minFundStartDate) {
+                balances.append(nil)
+            } else {
+                balances.append(funds.reduce(0) { $0 + $1.calculateBalanceOnDate((gsd).toISO(.withFullDate))})
+            }
             
-            // If the start and end values are the same, alter them slightly so that a line shows.
-            if startBalance.distance(to: balanceOnDay).magnitude < minimumDifference {
-                data.append(ChartPoint(
-                    date: startDate, openingBalance: startBalance + minimumDifference, closingBalance: balanceOnDay - minimumDifference, color: .zeroAmount))
-            }
-            else {
-                data.append(ChartPoint(
-                    date: startDate, 
-                    openingBalance: startBalance,
-                    closingBalance: balanceOnDay,
-                    color: balanceOnDay > startBalance ? .green : .red))
-            }
-            startDate = startDate + 1.days
-            startBalance = balanceOnDay
+            gsd = gsd + 1.days
+        }
+                
+        let min = balances.compactMap {$0}.min()
+        let max = balances.compactMap {$0}.max()
+        
+        // If we can't get a min and max out of the data something's odd
+        // and we won't get a useful graph, so bail out.
+        guard let min, let max else {
+            chartPoints = data
+            return
         }
         
+        // Generate a value for days earlier than the earliest fund date that
+        // won't affect the graph's range.
+        let avg = Double((min + max) / 2) / 100.0
+        
+        // If the daily range is less than 1% of the graph range we'll draw a
+        // thin grey line.
+        let minBarLimit = Double(max - min) / 100.0 / 100.0
+        
+        gsd = graphStartDate
+        var o = Double(openingBalance) / 100.0
+        for balance in balances {
+            // From before the start date, generate an invisible bar.
+            if (balance == nil) {
+                data.append(ChartPoint(
+                    date: gsd,
+                    openingBalance: avg,
+                    closingBalance: avg,
+                    color: .clear
+                ))
+            } 
+            else
+            {
+                let c = Double(funds.reduce(0) { $0 + $1.calculateBalanceOnDate((gsd).toISO(.withFullDate))}) / 100.0
+                let range = abs(c - o)
+                
+                if range < minBarLimit {                    
+                    data.append(ChartPoint(
+                        date: gsd,
+                        openingBalance: o - minBarLimit,
+                        closingBalance: o + minBarLimit,
+                        color: .zeroAmount
+                    ))
+                }
+                else {
+                    data.append(ChartPoint(
+                        date: gsd,
+                        openingBalance: o,
+                        closingBalance: c,
+                        color: c > o ? .positiveAmount : .negativeAmount
+                    ))
+                }
+                
+                o = c
+            }
+            gsd = gsd + 1.days
+        }
+                                
         chartPoints = data
     }
 }

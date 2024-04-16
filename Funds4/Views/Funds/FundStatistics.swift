@@ -9,11 +9,10 @@ struct FundStatistics: View {
     @Binding var fund: Fund
             
     var body: some View {
-            List {                                                
-                Section {          
-                    FundChart(chartViewModel: $chartViewModel)
-                }
-                
+        ScrollView {
+            VStack {
+                FundChart(chartViewModel: $chartViewModel)
+                    .frame(height: 200)
                 FundTransactionsList(fund: fund)
             }
             .navigationTitle(title)
@@ -21,6 +20,7 @@ struct FundStatistics: View {
             .onAppear(perform: {
                 chartViewModel.funds = [fund]
             })
+        }
     }
 }
 

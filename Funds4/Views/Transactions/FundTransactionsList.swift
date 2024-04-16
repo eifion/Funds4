@@ -11,11 +11,9 @@ struct FundTransactionsList: View {
         let groupedTransactions = Dictionary(grouping: filteredTransactions, by: {$0.orderedDisplayDate()})
         
         ForEach(groupedTransactions.sorted(by: { $0.key < $1.key }), id: \.key) { group in
-            Section(group.key.dropFirst(3)) {
-                ForEach(group.value) { transaction in
-                    TransactionRow(transaction: transaction)
-                }
-            }
+            ForEach(group.value) { transaction in
+                TransactionRow(transaction: transaction)
+            }            
        }
     }
 }

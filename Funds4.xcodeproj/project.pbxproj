@@ -28,7 +28,6 @@
 		EF7B6CD92BB0D47400CA6F92 /* Preview-ModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CD82BB0D47400CA6F92 /* Preview-ModelContainer.swift */; };
 		EF7B6CDC2BB0D49E00CA6F92 /* SampleData-Fund.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CDB2BB0D49E00CA6F92 /* SampleData-Fund.swift */; };
 		EF7B6CDE2BB0D4BF00CA6F92 /* SampleData-Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CDD2BB0D4BF00CA6F92 /* SampleData-Transaction.swift */; };
-		EF7B6CE02BB0D7BE00CA6F92 /* FundDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */; };
 		EF7B6CE22BB0D87200CA6F92 /* FundRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */; };
 		EF7B6CE62BB1680A00CA6F92 /* Int-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */; };
 		EF7B6CE82BB1840200CA6F92 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */; };
@@ -64,7 +63,6 @@
 		EF7B6CD82BB0D47400CA6F92 /* Preview-ModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview-ModelContainer.swift"; sourceTree = "<group>"; };
 		EF7B6CDB2BB0D49E00CA6F92 /* SampleData-Fund.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData-Fund.swift"; sourceTree = "<group>"; };
 		EF7B6CDD2BB0D4BF00CA6F92 /* SampleData-Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData-Transaction.swift"; sourceTree = "<group>"; };
-		EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundDetails.swift; sourceTree = "<group>"; };
 		EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundRow.swift; sourceTree = "<group>"; };
 		EF7B6CE52BB1680A00CA6F92 /* Int-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int-Extensions.swift"; sourceTree = "<group>"; };
 		EF7B6CE72BB1840200CA6F92 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
@@ -200,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				EF9EDCBD2BB98C94003D6D36 /* FundChart.swift */,
-				EF7B6CDF2BB0D7BE00CA6F92 /* FundDetails.swift */,
 				EF7B6CD12BB0A77300CA6F92 /* FundEditor.swift */,
 				EF7B6CCF2BB09EF400CA6F92 /* FundList.swift */,
 				EF7B6CE12BB0D87200CA6F92 /* FundRow.swift */,
@@ -303,7 +300,6 @@
 				EF7B6CCE2BB09BE000CA6F92 /* Date-Extensions.swift in Sources */,
 				EF5A690D2BB5751C00DDB156 /* FundStatistics.swift in Sources */,
 				EFD3F2DD2BB1EE3D00DB805D /* TransactionDaySection.swift in Sources */,
-				EF7B6CE02BB0D7BE00CA6F92 /* FundDetails.swift in Sources */,
 				EF3B69C12BBF32BC00271C56 /* ChartViewModel.swift in Sources */,
 				EF7B6CD02BB09EF400CA6F92 /* FundList.swift in Sources */,
 				EF7B6CE22BB0D87200CA6F92 /* FundRow.swift in Sources */,

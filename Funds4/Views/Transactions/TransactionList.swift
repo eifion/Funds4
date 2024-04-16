@@ -25,23 +25,26 @@ struct TransactionList: View {
                 VStack {
                     FundChart(chartViewModel: $chartViewModel)
                     
-                    HStack {
-                        Text("Transactions")
-                            .font(.title)
-                            .bold()
-                            .padding(.vertical)
-                        Spacer()
+                    VStack {
+                        HStack {
+                            Text("Transactions")
+                                .font(.title)
+                                .bold()
+                                .padding(.vertical)
+                            Spacer()
+                        }
+                        
+                        ForEach($groupedTransactions.sorted(by: { $0.id < $1.id })) { group in
+                            TransactionGroup(
+                                group: group,
+                                transactionToEdit: $transactionToEdit)
+                        }
                     }
-                    
-                    ForEach($groupedTransactions.sorted(by: { $0.id < $1.id })) { group in
-                        TransactionGroup(
-                            group: group,
-                            transactionToEdit: $transactionToEdit)
-                    }
+                    .padding()
                 }
 
             }
-            .padding()
+            
             .sheet(isPresented: $showAddTransaction, onDismiss: updateOverallBalance) {
                 let defaultFund = funds.first(where: { $0.isDefault })
                 TransactionEditor(fund: defaultFund!, transactionToEdit: nil as Transaction?)
@@ -109,9 +112,7 @@ struct TransactionList: View {
     }
 
     func updateOverallBalance() {
-        print("There are \(transactions.count) transactions.")
         let filteredTransactions = transactions.filter{ $0.amount > 0 || ($0.transferTransaction == nil && $0.amount < 0) }
-        print("There are \(filteredTransactions.count) transactions.")
         let groupedTransactionsDictionary = Dictionary(grouping: filteredTransactions, by: {$0.orderedDisplayDate()})
         groupedTransactions = []
         groupedTransactionsDictionary.keys.forEach { key in
