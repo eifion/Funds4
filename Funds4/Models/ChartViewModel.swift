@@ -19,6 +19,24 @@ import SwiftUI
         currentBalance - openingBalance
     }
     
+    func getChange(daysAgo: Int) -> Int {
+        if (chartPoints.count < daysAgo) {
+            return getChange()
+        }
+        
+        let chartPoint = chartPoints[chartPoints.endIndex - daysAgo]
+        return currentBalance - Int(chartPoint.closingBalance * 100.0)
+    }
+    
+    func getChangeColor(daysAgo: Int) -> Color {
+        var change = getChange(daysAgo: daysAgo)
+        switch change.signum() {
+            case 1: return Color.positiveAmount
+            case -1: return Color.negativeAmount
+            default: return Color.zeroAmount
+        }
+    }
+    
     func getChangeColor() -> Color {
         switch getChange().signum() {
             case 1: return Color.positiveAmount

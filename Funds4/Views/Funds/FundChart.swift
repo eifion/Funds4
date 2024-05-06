@@ -6,6 +6,10 @@ import SwiftUI
 struct FundChart: View {
     @Binding var chartViewModel: ChartViewModel
     
+    @State private var changeBalance: String = ""
+    @State private var changeColor: Color = Color.black
+    @State private var show30DaysChanges: Bool = true
+    
     var body: some View {
         ZStack {
             Color(Color.Chart.background)
@@ -15,8 +19,10 @@ struct FundChart: View {
                         Text("\(chartViewModel.currentBalance.asCurrency)")
                             .foregroundStyle(chartViewModel.getBalanceColor())
 
-                        Text("(\((chartViewModel.getChange()).asCurrency))")
-                            .foregroundStyle(chartViewModel.getChangeColor())
+                        Text(changeBalance)
+                            .foregroundStyle(changeColor)
+                            .onTapGesture(perform: updateChanges)
+                            .onChange(of: chartViewModel.chartPoints.count, updateChanges)
 
                     }
                     .font(.headline)
@@ -52,6 +58,18 @@ struct FundChart: View {
             
         }
         .cornerRadius(8)
+    }
+    
+    private func updateChanges() {
+        if (show30DaysChanges) {
+            changeBalance = chartViewModel.getChange(daysAgo: 30).asCurrency
+            changeColor = chartViewModel.getChangeColor(daysAgo: 30)
+        }
+        else {
+            changeBalance = chartViewModel.getChange().asCurrency
+            changeColor = chartViewModel.getChangeColor()
+        }
+        show30DaysChanges.toggle()
     }
 }
 
