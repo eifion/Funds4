@@ -102,7 +102,7 @@ import SwiftUI
         let minBarLimit = Double(max - min) / 100.0 / 100.0
         
         gsd = graphStartDate
-        var o = Double(openingBalance) / 100.0
+        var o = Double(funds.reduce(0) { $0 + $1.calculateBalanceOnDate((gsd - 1.days).toISO(.withFullDate))}) / 100.0
         for balance in balances {
             // From before the start date, generate an invisible bar.
             if (balance == nil) {

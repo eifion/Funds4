@@ -65,8 +65,7 @@ final class Fund {
     func getBalanceOnDate(_ dateString: String) -> Int {
         // Get all current transactions:
         let daysOutgoings = transactions.filter({ $0.amount < 0 && $0.startDate == dateString}).reduce(0) { $0 + $1.amount }
-        let daysIncomings = transactions.filter({$0.isCurrentIncoming}).reduce(0) { $0 + $1.amountPerDay }
-        print("\(dateString) \(daysIncomings) \(daysOutgoings)")
+        let daysIncomings = transactions.filter({$0.isCurrentIncoming}).reduce(0) { $0 + $1.amountPerDay }        
         return daysIncomings + daysOutgoings
     }
     
