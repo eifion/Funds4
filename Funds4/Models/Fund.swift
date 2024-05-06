@@ -62,6 +62,14 @@ final class Fund {
         return s
     }
     
+    func getBalanceOnDate(_ dateString: String) -> Int {
+        // Get all current transactions:
+        let daysOutgoings = transactions.filter({ $0.amount < 0 && $0.startDate == dateString}).reduce(0) { $0 + $1.amount }
+        let daysIncomings = transactions.filter({$0.isCurrentIncoming}).reduce(0) { $0 + $1.amountPerDay }
+        print("\(dateString) \(daysIncomings) \(daysOutgoings)")
+        return daysIncomings + daysOutgoings
+    }
+    
     func calculateBalanceOnDate(_ dateString: String) -> Int {
         guard let date = dateString.toDate()?.date else {
             fatalError("Couldn't calculate the end date")
@@ -74,7 +82,8 @@ final class Fund {
         }
 
         var balance = openingBalance
-        for transaction in transactions {
+        for transaction in transactions
+        {
             // Ignore transactions with future dates.
             if (transaction.startDate > dateString) {
                 continue

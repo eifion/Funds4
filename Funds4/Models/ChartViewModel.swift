@@ -58,7 +58,7 @@ import SwiftUI
     }
             
     func updateChartData() {
-        let days = 30 //TODO: This will come from a picker control.
+        let days = 29 //TODO: This will come from a picker control.
         
         openingBalance = funds.reduce(0) { $0 + $1.openingBalance }
         currentBalance = funds.reduce(0) { $0 + $1.currentBalance }
@@ -71,13 +71,15 @@ import SwiftUI
                 
         var balances = [Int?]()
         var gsd = graphStartDate
+        var runningBalance = 0
         while(gsd <= Date.now.dateAtStartOf(.day)) {
+            runningBalance += funds.reduce(0) { $0 + $1.getBalanceOnDate((gsd).toISO(.withFullDate))}
             if (gsd <= minFundStartDate) {
                 balances.append(nil)
             } else {
-                balances.append(funds.reduce(0) { $0 + $1.calculateBalanceOnDate((gsd).toISO(.withFullDate))})
+                balances.append(runningBalance)
             }
-            
+                        
             gsd = gsd + 1.days
         }
                 

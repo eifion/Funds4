@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import SwiftDate
 import SwiftUI
 
 @Model
@@ -91,6 +92,19 @@ final class Transaction: Identifiable {
         return e
     }
     
+    @Transient
+    var isCurrentIncoming: Bool { return self.amount > 0 && Date.now.isInRange(date: self.startDateAsDate, and: self.endDateAsDate) }
+    
+    @Transient
+    var totalDays: Int {
+        return TimePeriod(start: startDate.toDate(), end: endDate.toDate()).days + 1
+    }
+    
+    @Transient
+    var amountPerDay: Int {
+        return amount / totalDays
+    }
+            
     func orderedDisplayDate() -> String {
         let date = startDateAsDate
         
