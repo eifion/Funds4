@@ -29,7 +29,7 @@ import SwiftUI
     }
     
     func getChangeColor(daysAgo: Int) -> Color {
-        var change = getChange(daysAgo: daysAgo)
+        let change = getChange(daysAgo: daysAgo)
         switch change.signum() {
             case 1: return Color.positiveAmount
             case -1: return Color.negativeAmount
@@ -100,27 +100,35 @@ import SwiftUI
                         
             gsd = gsd + 1.days
         }
-                
+                                
         let min = balances.compactMap {$0}.min()
         let max = balances.compactMap {$0}.max()
         
         // If we can't get a min and max out of the data something's odd
         // and we won't get a useful graph, so bail out.
-        guard let min, let max else {
+        guard var min, var max else {
             chartPoints = data
             return
         }
         
+        min += openingBalance
+        max += openingBalance
+        
+        print("\(min) \(max)")
+        
         // Generate a value for days earlier than the earliest fund date that
         // won't affect the graph's range.
         let avg = Double((min + max) / 2) / 100.0
-        
+                        
         // If the daily range is less than 1% of the graph range we'll draw a
         // thin grey line.
         let minBarLimit = Double(max - min) / 100.0 / 100.0
         
         gsd = graphStartDate
-        var o = Double(funds.reduce(0) { $0 + $1.calculateBalanceOnDate((gsd - 1.days).toISO(.withFullDate))}) / 100.0
+        var o: Double = (graphStartDate < minFundStartDate)
+         ? Double(openingBalance) / 100.0
+         : Double(funds.reduce(0) { $0 + $1.calculateBalanceOnDate((gsd - 1.days).toISO(.withFullDate))}) / 100.0
+                
         for balance in balances {
             // From before the start date, generate an invisible bar.
             if (balance == nil) {
@@ -157,7 +165,7 @@ import SwiftUI
             }
             gsd = gsd + 1.days
         }
-                                
+                                                
         chartPoints = data
     }
 }
